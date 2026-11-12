@@ -1,0 +1,34 @@
+{
+  "source": "BRANDEFENSE/threat-actor-dataset",
+  "downloaded_at": "2026-11-12T20:14:59.063176+00:00",
+  "files": [
+    {
+      "filename": "apt-groups.json",
+      "url": "https://raw.githubusercontent.com/BRANDEFENSE/threat-actor-dataset/main/data/apt-groups.json",
+      "count": 52,
+      "generated": "2026-10-28",
+      "sha256": "4d92e34c61442fc6502f6c81147acb3428942e315a7868d60258485f4833c9e2"
+    },
+    {
+      "filename": "ransomware-groups.json",
+      "url": "https://raw.githubusercontent.com/BRANDEFENSE/threat-actor-dataset/main/data/ransomware-groups.json",
+      "count": 28,
+      "generated": "2026-10-28",
+      "sha256": "0000ba938d7031351ea6c4b1bdb90e28b3abf0274a1ab1f7c897c11250edd5d5"
+    },
+    {
+      "filename": "malware.json",
+      "url": "https://raw.githubusercontent.com/BRANDEFENSE/threat-actor-dataset/main/data/malware.json",
+      "count": 59,
+      "generated": "2026-10-28",
+      "sha256": "0b6ffbebecf399b00251cd2b6b3841adb9965a1d77e822a8a957a6897814e59c"
+    },
+    {
+      "filename": "attack-techniques.json",
+      "url": "https://raw.githubusercontent.com/BRANDEFENSE/threat-actor-dataset/main/data/attack-techniques.json",
+      "count": 42,
+      "generated": "2026-10-28",
+      "sha256": "827a7c7245a46e8689966579a7161454f103e0f3bcb33cd22e071615637993b7"
+    }
+  ]
+}
