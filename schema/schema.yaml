@@ -1,0 +1,254 @@
+
+project: cti-graphrag
+schema_version: "1.0"
+language: en
+
+graphs:
+  gold: cti_gold
+  extracted: cti_extracted
+
+naming:
+  labels: PascalCase
+  relationships: UPPER_SNAKE_CASE
+  properties: snake_case
+
+ids:
+  unresolved_format: "new:<label>:<slug>"
+  slug_rule: "lowercase, no accents, spaces replaced with underscores"
+
+  formats:
+    Group: "MITRE ATT&CK ID, e.g. G0016"
+    Software: "MITRE ATT&CK ID, e.g. S0154"
+    Technique: "MITRE ATT&CK ID, e.g. T1566.001"
+    Tactic: "MITRE ATT&CK ID, e.g. TA0001"
+    Vulnerability: "CVE ID, e.g. CVE-2023-23397"
+    Vendor: "vendor:<slug>"
+    Product: "product:<vendor>:<slug>"
+    Sector: "sector:<slug>"
+    Country: "country:<ISO-3166-1-alpha-2>"
+    Document: "doc:<source>:<source_id>"
+    Chunk: "<document_id>#<zero_based_number>"
+
+embedding:
+  model: BAAI/bge-small-en-v1.5
+  dimensions: 384
+  similarity: cosine
+
+graph_layers:
+  gold:
+    description: "Structured reference information"
+  extracted:
+    description: "Entities and relationships extracted by LLM"
+
+labels:
+
+  Group:
+    description: "Cyber threat actor groups"
+    properties:
+      id: {type: string, required: true}
+      name: {type: string, required: true}
+      aliases: {type: array, items: string}
+      aliases_text: {type: string}
+      description: {type: string}
+      embedding: {type: vector, dimensions: 384}
+    indexes:
+      unique: [id]
+      range: [id, name]
+      fulltext: [name, aliases_text, description]
+      vector: embedding
+
+  Software:
+    description: "Malware families and adversary tools"
+    properties:
+      id: {type: string, required: true}
+      name: {type: string, required: true}
+      type:
+        type: string
+        allowed_values: [malware, tool]
+      aliases: {type: array, items: string}
+      aliases_text: {type: string}
+      description: {type: string}
+    indexes:
+      unique: [id]
+      range: [id]
+      fulltext: [name, aliases_text]
+
+  Technique:
+    description: "MITRE ATT&CK techniques and sub-techniques"
+    properties:
+      id: {type: string, required: true}
+      name: {type: string, required: true}
+      is_subtechnique: {type: boolean}
+      description: {type: string}
+      embedding: {type: vector, dimensions: 384}
+    indexes:
+      unique: [id]
+      range: [id]
+      fulltext: [name, description]
+      vector: embedding
+
+  Tactic:
+    description: "MITRE ATT&CK tactical objectives"
+    properties:
+      id: {type: string, required: true}
+      name: {type: string, required: true}
+      shortname: {type: string}
+    indexes:
+      unique: [id]
+      range: [id]
+
+  Vulnerability:
+    description: "Known software vulnerabilities"
+    properties:
+      id: {type: string, required: true}
+      description: {type: string}
+      date_added: {type: string}
+      ransomware_use: {type: string}
+    indexes:
+      unique: [id]
+      range: [id]
+      fulltext: [description]
+
+  Product:
+    description: "Affected software and hardware products"
+    properties:
+      id: {type: string, required: true}
+      name: {type: string, required: true}
+    indexes:
+      unique: [id]
+      range: [id]
+
+  Vendor:
+    description: "Product manufacturers and vendors"
+    properties:
+      id: {type: string, required: true}
+      name: {type: string, required: true}
+    indexes:
+      unique: [id]
+      range: [id]
+
+  Sector:
+    description: "Economic and organizational sectors"
+    properties:
+      id: {type: string, required: true}
+      name: {type: string, required: true}
+    allowed_values: []
+    indexes:
+      unique: [id]
+      range: [id]
+
+  Country:
+    description: "Countries associated with threat intelligence"
+    properties:
+      id: {type: string, required: true}
+      name: {type: string, required: true}
+    indexes:
+      unique: [id]
+      range: [id]
+
+  Document:
+    description: "Original CTI documents and sources"
+    properties:
+      id: {type: string, required: true}
+      title: {type: string}
+      url: {type: string}
+      source: {type: string, required: true}
+    indexes:
+      unique: [id]
+      range: [id]
+
+  Chunk:
+    description: "Text segments extracted from documents"
+    properties:
+      id: {type: string, required: true}
+      text: {type: string, required: true}
+      embedding: {type: vector, dimensions: 384}
+    indexes:
+      unique: [id]
+      range: [id]
+      fulltext: [text]
+      vector: embedding
+
+relationships:
+
+  USES:
+    kind: semantic
+    allowed_endpoints:
+      - {from: Group, to: Software}
+      - {from: Group, to: Technique}
+      - {from: Software, to: Technique}
+
+  BELONGS_TO:
+    kind: semantic
+    allowed_endpoints:
+      - {from: Technique, to: Tactic}
+
+  SUBTECHNIQUE_OF:
+    kind: semantic
+    allowed_endpoints:
+      - {from: Technique, to: Technique}
+
+  AFFECTS:
+    kind: semantic
+    allowed_endpoints:
+      - {from: Vulnerability, to: Product}
+
+  MADE_BY:
+    kind: semantic
+    allowed_endpoints:
+      - {from: Product, to: Vendor}
+
+  EXPLOITS:
+    kind: semantic
+    allowed_endpoints:
+      - {from: Group, to: Vulnerability}
+      - {from: Software, to: Vulnerability}
+
+  TARGETS:
+    kind: semantic
+    allowed_endpoints:
+      - {from: Group, to: Sector}
+      - {from: Group, to: Country}
+
+  ASSOCIATED_WITH:
+    kind: semantic
+    allowed_endpoints:
+      - {from: Group, to: Country}
+
+  PART_OF:
+    kind: structural
+    allowed_endpoints:
+      - {from: Chunk, to: Document}
+
+  MENTIONED_IN:
+    kind: structural
+    allowed_endpoints:
+      - {from: Group, to: Chunk}
+      - {from: Software, to: Chunk}
+      - {from: Technique, to: Chunk}
+      - {from: Tactic, to: Chunk}
+      - {from: Vulnerability, to: Chunk}
+      - {from: Product, to: Chunk}
+      - {from: Vendor, to: Chunk}
+      - {from: Sector, to: Chunk}
+      - {from: Country, to: Chunk}
+
+semantic_relationship_properties:
+  source:
+    type: string
+    required: true
+    allowed_values: [gold, extracted]
+
+  chunk_id:
+    type: string
+    required: true
+
+  evidence:
+    type: string
+    required: true
+
+  confidence:
+    type: float
+    required: true
+    minimum: 0.0
+    maximum: 1.0
