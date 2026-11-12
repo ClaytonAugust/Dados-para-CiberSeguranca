@@ -1,11 +1,9 @@
-
 import os
 import sys
 from pathlib import Path
 
 from dotenv import load_dotenv
 from falkordb import FalkorDB
-
 
 def main() -> int:
     # Localiza o .env na raiz do projeto
