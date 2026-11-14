@@ -64,7 +64,8 @@ COUNTRY_NAMES: dict[str, str] = {
 # Abbreviations, matched case-sensitively ("US", not the word "us").
 COUNTRY_ABBREVIATIONS: dict[str, str] = {"US": "US", "U.S.": "US", "USA": "US", "UK": "GB"}
 
-# Closed sector list (proposal v2) -> keywords, matched case-insensitively.
+# Closed sector list (proposal v2, 21 slugs) -> keywords. Each pattern is a regex
+# searched anywhere in the raw value (substring, not exact, not fuzzy), case-insensitive.
 # "IT" is matched case-sensitively in SECTOR_CASE_SENSITIVE.
 SECTOR_KEYWORDS: dict[str, str] = {
     "government": (
@@ -99,6 +100,7 @@ SECTOR_KEYWORDS: dict[str, str] = {
     "hospitality": r"hospitality|hotel|lodging|restaurant|casino|gambling|betting|travel|gaming",
     "construction": r"construction|property development",
     "agriculture": r"agricultur|forestry|farm",
+    "critical_infrastructure": r"critical (?:national )?infrastructure|key infrastructure",
 }
 SECTOR_CASE_SENSITIVE: dict[str, str] = {"technology": r"\bIT\b"}
 

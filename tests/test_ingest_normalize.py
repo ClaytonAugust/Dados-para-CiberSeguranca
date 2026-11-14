@@ -70,7 +70,12 @@ def test_country_in_sector_becomes_country_only():
 
 
 def test_unmapped_sector():
-    assert not map_sector("Critical infrastructure").mapped
+    assert not map_sector("Other sectors").mapped
+
+
+def test_critical_infrastructure_sector():
+    assert map_sector("Critical national infrastructure").sectors == ("critical_infrastructure",)
+    assert map_sector("Critical manufacturing").sectors == ("manufacturing",)
 
 
 def test_it_is_case_sensitive():

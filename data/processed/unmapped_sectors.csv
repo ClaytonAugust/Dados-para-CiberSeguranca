@@ -1,5 +1,4 @@
 raw_value,count,groups
-Critical infrastructure,8,apt34-oilrig;ember-bear;gamaredon;indrik-spider;sandworm;turla;unc3886;wizard-spider
 "Asia, Africa, Europe, North America",2,apt39;muddywater
 Middle East,2,apt34-oilrig;muddywater
 Other countries,2,cyberav3ngers;volt-typhoon
@@ -15,10 +14,6 @@ Caucasus and Eastern Europe,1,silent-lynx
 Central Asia,1,silent-lynx
 Central Europe,1,mirrorface
 Countries,1,andariel
-Critical infrastructure and private sector,1,handala
-Critical infrastructure networking devices,1,dragonfly
-Critical infrastructure organizations (all sectors),1,alphv-blackcat
-Critical national infrastructure,1,dragonforce
 Customer data,1,salt-typhoon
 EU and NATO states,1,laundry-bear
 East and Central Asia,1,laundry-bear
@@ -31,7 +26,6 @@ Industries listed by MITRE,1,fin7
 Iranian private sector,1,apt39
 Israeli organizations,1,handala
 Israeli-made equipment,1,cyberav3ngers
-Key infrastructure (Clop),1,ta505
 "Large, high-revenue organizations across sectors",1,darkside
 Latin America,1,k0t
 Many industries (Clop),1,ta505
