@@ -83,7 +83,7 @@ SECTOR_KEYWORDS: dict[str, str] = {
     "technology": (
         r"technolog|\btech\b|software|\bsaas\b|cloud|semiconductor|electronics|digital"
         r"|hosting|service providers|outsourc|\bbpo\b|\bcrm\b|open source|developer"
-        r"|kubernetes|certificate authority|cybersecurity"
+        r"|kubernetes|certificate authority|cybersecurity|security research"
     ),
     "education": r"educat|universit|academ|school|student",
     "manufacturing": r"manufactur|industrial|metals|steel|chemical|engineering",
@@ -91,7 +91,8 @@ SECTOR_KEYWORDS: dict[str, str] = {
     "retail": r"retail|jewel|commercial facilities",
     "media": r"media|journalist|\bnews\b|entertainment|video games|bloggers",
     "legal": r"legal|law firm",
-    "research": r"research|think tank|policy experts|analysts",
+    # "Security researchers" are technology, not the research sector.
+    "research": r"(?<!security )research|think tank|policy experts|analysts",
     "cryptocurrency": r"crypto|blockchain",
     "ngo": (
         r"\bngos?\b|non-profit|civil society|activist|dissident|labor union|religio"
@@ -103,6 +104,13 @@ SECTOR_KEYWORDS: dict[str, str] = {
     "critical_infrastructure": r"critical (?:national )?infrastructure|key infrastructure",
 }
 SECTOR_CASE_SENSITIVE: dict[str, str] = {"technology": r"\bIT\b"}
+SECTOR_NAMES: dict[str, str] = {
+    slug: {"ngo": "NGO"}.get(slug, slug.replace("_", " ").title()) for slug in SECTOR_KEYWORDS
+}
+# ISO code -> display name (first name listed wins: "Turkey" over "Türkiye").
+COUNTRY_BY_CODE: dict[str, str] = {}
+for _name, _code in COUNTRY_NAMES.items():
+    COUNTRY_BY_CODE.setdefault(_code, _name)
 
 
 def _country_pattern() -> re.Pattern[str]:

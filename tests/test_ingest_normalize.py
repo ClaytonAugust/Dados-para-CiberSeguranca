@@ -9,6 +9,7 @@ from cti_graphrag.ingest.normalize import (
     SoftwareIndex,
     build_report,
     find_countries,
+    load_composite_tools,
     map_region,
     map_sector,
     parse_origin,
@@ -121,6 +122,47 @@ def test_software_match(index, name, url, expected_id, method):
     assert (match.software_id, match.method) == (expected_id, method)
 
 
+def test_security_researchers_are_technology():
+    assert map_sector("Security researchers").sectors == ("technology",)
+    assert map_sector("Think tanks and research").sectors == ("research",)
+
+
+def test_composite_tools_file(tmp_path):
+    path = tmp_path / "composite.csv"
+    path.write_text(
+        "original|action|result\n"
+        "Mimikatz and LaZagne|split|Mimikatz; LaZagne\n"
+        "Git (git.exe)|alias|Git [git.exe, gcmd.exe]\n"
+        "Word and PDF lures|skip|\n",
+        encoding="utf-8",
+    )
+    composites = load_composite_tools(path)
+    malware = [Malware.model_validate({"name": "Mimikatz", "slug": "mimikatz"})]
+    index = SoftwareIndex(malware, composites)
+    split = index.resolve("Mimikatz and LaZagne")
+    assert [(t.match.software_id, t.match.method) for t in split] == [
+        ("software:mimikatz", "name"),
+        ("software:lazagne", "new"),
+    ]
+    (git,) = index.resolve("Git (git.exe)")
+    assert (git.name, git.aliases) == ("Git", ("git.exe", "gcmd.exe"))
+    assert index.resolve("Word and PDF lures") == []
+    assert index.resolve("Cobalt Strike")[0].match.software_id == "software:cobalt-strike"
+
+
+def test_composite_tools_rejects_unknown_action(tmp_path):
+    path = tmp_path / "composite.csv"
+    path.write_text("original|action|result\nA and B|merge|A\n", encoding="utf-8")
+    with pytest.raises(ValueError, match="merge"):
+        load_composite_tools(path)
+
+
+def test_real_composite_file_has_21_entries():
+    composites = load_composite_tools()
+    assert len(composites) == 21
+    assert sum(c.action == "skip" for c in composites.values()) == 3
+
+
 def test_slugify():
     assert slugify("Git (git.exe, gcmd.exe)") == "git-git-exe-gcmd-exe"
 
@@ -130,9 +172,12 @@ def test_report_on_real_data():
     report = build_report(load_dataset())
     assert report["tools"] == {
         "refs": 480,
-        "by_method": {"name": 90, "new": 351, "alias": 8, "url_slug": 31},
+        "composite_refs": 21,
+        "skipped_refs": 3,
+        "targets": 499,
+        "by_method": {"name": 91, "new": 369, "alias": 8, "url_slug": 31},
         "malware_reached": 49,
-        "new_software_nodes": 333,
+        "new_software_nodes": 345,
     }
     assert report["sectors"]["refs"] == 475
     assert report["origin"] == {"attributed": 39, "no_edge": 11, "suspected": 2}

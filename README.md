@@ -113,7 +113,8 @@ O `.env` precisa ter todas as variáveis do `.env.example`. Se faltar alguma, `c
   - **Setores:** 475 referências (317 grafias), lista fechada de 21 slugs. Em algum setor: 385 (81,1%). Só país, que vira `Country`: 27 (5,7%). Sem mapeamento: 63 (13,3%; 58 grafias), em `sectors_raw` e em `data/processed/unmapped_sectors.csv`. O casamento é por palavra-chave (regex buscada em qualquer parte do texto, sem diferenciar maiúsculas), não exato nem fuzzy.
   - **Regiões:** 131 referências; 91 viram só países, 7 viram países com sobra em `regions_raw` e 33 não têm país (ex.: "Europe", "Worldwide"); 43 países distintos.
   - **Origem:** 39 `attributed`, 2 `suspected`, 11 sem aresta (8 vazias e 3 "Not stated/Not attributed").
-  - **Tools:** 480 referências; casam com `malware.json` 31 pelo slug da URL, 90 pelo nome e 8 por alias (129, alcançando 49 dos 59 softwares); 351 não casam e viram 333 nós Software novos.
+  - **Tools:** 480 referências. 21 são compostas e seguem a revisão manual em `data/curated/composite_tools.csv` (16 divididas, 2 viram alias, 3 puladas), o que dá 499 alvos. Casam com `malware.json` 31 pelo slug da URL, 91 pelo nome e 8 por alias (49 dos 59 softwares); 369 não casam e viram 345 nós Software novos.
+  - Mapeamento completo de setores para revisão em `data/curated/sector_mapping_review.csv` (grafia | setores | país | contagem).
 - Slug repetido é checado por arquivo: akira, black-basta, conti e revil existem como grupo de ransomware e como malware, e isso é esperado.
 
 ## Schema e IDs
@@ -157,5 +158,7 @@ O `.env` precisa ter todas as variáveis do `.env.example`. Se faltar alguma, `c
 - O `docs/dataset.md` do repositório não numera armadilhas (1 a 12); as correções seguem as instruções explícitas da Fase 2, não essa numeração.
 - Além do final " (Txxxx): ATT&CK Technique", também é removido o final " (Txxxx)" sem o resto (5 páginas, ex.: "Web Shell (T1505.003)"); em todos os 6 casos o nome da lista tem prioridade, então isso não muda nenhum nome no grafo.
 - Setores: 13,3% das referências seguem sem mapeamento; são sobretudo regiões ("Middle East"), alvos vagos ("Many sectors", "Individuals") e tipos de equipamento ("Routers and edge devices").
-- 21 tools sem casamento são entradas compostas ("Mimikatz and LaZagne", "PsExec, SNScan and Putty") e viram um nó só; não foram separadas.
+- Casamento de setor por palavra-chave pode perder partes de valores compostos: "Mining" em "Energy and mining" não tem slug e some.
+- Políticos, partidos e eleições são mapeados em `government` (ex.: "Politicians and activists" → government, ngo).
+- 3 tools compostas foram puladas (`skip`), 3 referências: "VBS and PowerShell malware", "Word and PDF lures" e "CVE-2017-11882 and CVE-2020-0674".
 - "Korea (Clop)" nas regiões fica em `regions_raw`: "Korea" sozinho não diz se é Norte ou Sul.

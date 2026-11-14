@@ -1,0 +1,318 @@
+grafia|setores|pais|contagem
+Aerospace, government, defense, technology, energy, manufacturing, gambling/betting|government;defense;aerospace;energy;technology;manufacturing;hospitality||1
+Communications, defense industrial base, energy, finance, government, health|government;defense;financial;healthcare;energy;telecommunications;manufacturing||1
+Technology companies, think tanks, law firms, defense contractors, local governments, health care systems, universities|government;defense;healthcare;technology;education;legal;research||1
+Gaming, hospitality, retail, managed service providers, manufacturing, finance|financial;technology;manufacturing;retail;hospitality||1
+Media, construction, engineering, electronics, finance|financial;technology;manufacturing;media;construction||1
+Government, defense, dissidents, think tanks|government;defense;research;ngo||1
+Government, transport, lodging, military|government;defense;transportation;hospitality||1
+Professional services, manufacturing, IT, logistics, travel|technology;manufacturing;transportation;hospitality||1
+Civil society, journalists, opposition politicians|government;media;ngo||1
+Defense, aviation, government|government;defense;aerospace||1
+Defense, diplomatic, financial|government;defense;financial||1
+Defense, media and communications in Japan|defense;telecommunications;media|JP|1
+Energy, manufacturing and higher education|energy;education;manufacturing||1
+Energy, nuclear, water, aviation, manufacturing|aerospace;energy;manufacturing||1
+Manufacturing, IT and media|technology;manufacturing;media||1
+Research, universities and health|healthcare;education;research||1
+Software, construction and communication equipment (South Korea)|telecommunications;technology;construction|KR|1
+Technology, finance and retail|financial;technology;retail||1
+Telecoms, health and transport|healthcare;telecommunications;transportation||1
+Transportation, insurance and defense|defense;financial;transportation||1
+Government and military|government;defense||3
+NGOs and think tanks|research;ngo||3
+Dissidents and journalists|media;ngo||2
+Politicians and activists|government;ngo||2
+Activists and bloggers|media;ngo||1
+Aerospace, aviation and defense|defense;aerospace||1
+Civil society and media|media;ngo||1
+Construction and engineering|manufacturing;construction||1
+Critical infrastructure and defense|defense;critical_infrastructure||1
+Critical infrastructure and US courts|government;critical_infrastructure|US|1
+CRM, BPO, telecom and technology|telecommunications;technology||1
+Defense and government|government;defense||1
+Defense industry and aerospace|defense;aerospace||1
+Education and manufacturing|education;manufacturing||1
+Education and research|education;research||1
+Energy and industrial control systems|energy;manufacturing||1
+Energy, business services and telecoms|energy;telecommunications||1
+Energy, technology and commercial|energy;technology||1
+Government, academia, private sector|government;education||1
+Government, defense, diplomatic (Bangladesh)|government;defense|BD|1
+Government, military, business (Asia)|government;defense||1
+Healthcare and biotechnology|healthcare;technology||1
+Healthcare and vaccine research|healthcare;research||1
+Infectious disease and COVID-19 research|healthcare;research||1
+Israeli military and government personnel|government;defense||1
+Judiciary and non-profits|government;ngo||1
+Maritime and naval|defense;transportation||1
+Medical and energy|healthcare;energy||1
+Medical technology|healthcare;technology||1
+Military and law enforcement (Bangladesh)|government;defense|BD|1
+Mining, transport and communications|telecommunications;transportation||1
+Policy think tanks and NGOs|research;ngo||1
+Retail, restaurants and hotels|retail;hospitality||1
+Semiconductors and manufacturing|technology;manufacturing||1
+Shipping, logistics and media|transportation;media||1
+State and local government, aviation|government;aerospace||1
+Technology and aerospace|aerospace;technology||1
+Telecoms and electronics|telecommunications;technology||1
+Think tanks and embassies|government;research||1
+Think tanks, religion, research|research;ngo||1
+Transport and manufacturing|manufacturing;transportation||1
+Government|government||20
+Healthcare|healthcare||20
+Energy|energy||11
+Manufacturing|manufacturing||9
+Critical infrastructure|critical_infrastructure||8
+Defense|defense||8
+Education|education||8
+Technology|technology||8
+Telecommunications|telecommunications||8
+Finance|financial||7
+Financial services|financial||7
+Academia|education||5
+Government and public sector|government||5
+Journalists and media|media||4
+Media|media||4
+Information technology|technology||3
+Aerospace|aerospace||2
+Civil society|ngo||2
+Commercial facilities|retail||2
+Communications|telecommunications||2
+Critical manufacturing|manufacturing||2
+Cryptocurrency exchanges|cryptocurrency||2
+Diplomatic missions|government||2
+Engineering|manufacturing||2
+EU institutions|government||2
+Foreign governments|government||2
+Government and diplomacy|government||2
+Healthcare and public health|healthcare||2
+Legal services|legal||2
+Local government|government||2
+Nuclear power|energy||2
+Pharmaceutical|healthcare||2
+Politicians|government||2
+Service providers|technology||2
+Technology and IT|technology||2
+Transportation|transportation||2
+Academic|education||1
+AI developer tooling|technology||1
+Aid to Ukraine|ngo|UA|1
+Aviation|aerospace||1
+Bank payment systems and ATMs|financial||1
+Banks and financial institutions|financial||1
+Business and governments|government||1
+Business process outsourcers|technology||1
+Business services and manufacturing|manufacturing||1
+Casinos|hospitality||1
+Chemical|manufacturing||1
+Chinese dissident groups|ngo||1
+Cloud accounts|technology||1
+Code hosting platform|technology||1
+Corporate cloud and code repositories|technology||1
+Critical infrastructure (US and Australia)|critical_infrastructure|US;AU|1
+Critical infrastructure and private sector|critical_infrastructure||1
+Critical infrastructure networking devices|critical_infrastructure||1
+Critical infrastructure organizations (all sectors)|critical_infrastructure||1
+Critical infrastructure, 12 of 16 US sectors|critical_infrastructure|US|1
+Critical national infrastructure|critical_infrastructure||1
+Cryptocurrency|cryptocurrency||1
+Cryptocurrency and blockchain firms|cryptocurrency||1
+Cryptocurrency industry|cryptocurrency||1
+Customer relationship management (CRM) platforms|technology||1
+Cybersecurity professionals and large enterprises|technology||1
+Defense and military support|defense||1
+Defense contractors|defense||1
+Digital certificate authority|technology||1
+Diplomatic|government||1
+Diplomatic and public administration (EU)|government||1
+Dissidents and opposition|ngo||1
+Education (Clop)|education||1
+Education (K-12 in particular)|education||1
+Education and business|education||1
+Education and universities|education||1
+Emergency services|government||1
+Emergency services and first responders|government||1
+Energy and critical sectors|energy||1
+Energy and electric utilities|energy||1
+Energy and mining|energy||1
+Energy and pipelines|energy||1
+Energy and utilities|energy||1
+Engineering and industrial control companies|manufacturing||1
+Entertainment|media||1
+Environment, water and forestry|agriculture||1
+European governments|government||1
+European Parliament|government||1
+European Union state bodies|government||1
+File transfer software users|technology||1
+Financial|financial||1
+Financial fraud victims|financial||1
+Financial institutions|financial||1
+Food and agriculture (BlackMatter)|agriculture||1
+Government (Pakistan)|government|PK|1
+Government agency employees|government||1
+Government and emergency services|government||1
+Government and ministries (Pakistan)|government|PK|1
+Government facilities|government||1
+Government personnel|government||1
+Government services and facilities|government||1
+Health organizations|healthcare||1
+High tech|technology||1
+Higher education|education||1
+Hospitality|hospitality||1
+Indo-Pacific governments|government||1
+Industrial control devices worldwide|manufacturing||1
+Industrial control system suppliers|manufacturing||1
+Insurance|financial||1
+Intelligence community|government||1
+International organizations|ngo||1
+ISP customers|telecommunications||1
+IT and service providers|technology||1
+IT and technology firms|technology||1
+IT and web hosting|technology||1
+IT providers and software developers|technology||1
+IT staff|technology||1
+Key infrastructure (Clop)|critical_infrastructure||1
+Kubernetes and containers|technology||1
+Labor union|ngo||1
+Large companies and their IT help desks|technology||1
+Law enforcement|government||1
+Law firms|legal||1
+Legal and professional services|legal||1
+Logistics and transport|transportation||1
+Luxury jewellery retailer|retail||1
+Mass media|media||1
+Metals|manufacturing||1
+Metals (steel)|manufacturing||1
+Military and defense|defense||1
+News media|media||1
+Nuclear|energy||1
+Oil and natural gas|energy||1
+Online gambling|hospitality||1
+Open source ecosystems|technology||1
+Other US critical infrastructure|critical_infrastructure|US|1
+Outsourcing firms and service providers|technology||1
+People in government and politics|government||1
+Policy experts and analysts|research||1
+Political organizations|government||1
+Political parties|government||1
+Politics and elections|government||1
+Ports and maritime|transportation||1
+Property development|construction||1
+Public administration (Germany)|government|DE|1
+Religious community|ngo||1
+Research|research||1
+Restaurants, gaming and hospitality|hospitality||1
+Retail and commercial facilities|retail||1
+Retail and ecommerce|retail||1
+SaaS providers|technology||1
+Security and defense|defense||1
+Security researchers|technology||1
+Shipping|transportation||1
+Software developers and CI/CD|technology||1
+Solar products|energy||1
+Students|education||1
+SWIFT endpoints|financial||1
+Technology and digital services|technology||1
+Technology and managed service providers|technology||1
+Technology and software|technology||1
+Telecommunications and consulting|telecommunications||1
+Telecommunications and internet providers|telecommunications||1
+Think tanks|research||1
+Think tanks and research|research||1
+Think tanks and research centers|research||1
+Think tanks and research institutes|research||1
+Third-party vendors on cloud platforms|technology||1
+Transport|transportation||1
+Transport and logistics|transportation||1
+Travel and hospitality|hospitality||1
+Ukrainian government bodies|government||1
+Ukrainian ministries|government||1
+Universities and academic institutions|education||1
+US and other countries, critical infrastructure|critical_infrastructure|US|1
+US election campaigns|government|US|1
+US federal government|government|US|1
+US government|government|US|1
+US government agencies|government|US|1
+US government and companies|government|US|1
+US healthcare|healthcare|US|1
+Video games|media||1
+Western military missions|defense||1
+United Kingdom||GB|4
+United States||US|3
+Asia, Africa, Europe, North America|||2
+Germany||DE|2
+Israel||IL|2
+Middle East|||2
+Other countries|||2
+South Korea||KR|2
+Water and wastewater|||2
+Website visitors|||2
+All sectors|||1
+Any industry|||1
+Asia Pacific|||1
+Business|||1
+Business services (all sectors)|||1
+Businesses|||1
+Businesses in North America, Europe and Australia||AU|1
+Canada||CA|1
+Caucasus and Eastern Europe|||1
+Central Asia|||1
+Central Europe|||1
+Countries|||1
+Customer data|||1
+East and Central Asia|||1
+Edge and remote access appliances|||1
+EU and NATO states|||1
+Exposed network devices|||1
+High-earning firms|||1
+Home and small office routers|||1
+Individuals|||1
+Industries listed by MITRE|||1
+Iranian private sector|||1
+Israeli organizations|||1
+Israeli-made equipment|||1
+Japan||JP|1
+Large, high-revenue organizations across sectors|||1
+Latin America|||1
+Many industries (Clop)|||1
+Many sectors|||1
+Middle East and Europe|||1
+Middle East region|||1
+Mobile phone users|||1
+Multinational companies with subsidiaries|||1
+Multiple industries|||1
+Myanmar||MM|1
+Named victims|||1
+Netherlands||NL|1
+Network and virtualization equipment|||1
+New Zealand||NZ|1
+Organizations running F5 BIG-IP|||1
+Organizations running Zimbra|||1
+Other devices of interest|||1
+Other sectors|||1
+Package maintainers|||1
+Private sector|||1
+Professional services|||1
+Recruitment staff|||1
+Routers and edge devices|||1
+Russian critics and the public|||1
+Saudi Arabia||SA|1
+Seven countries|||1
+Smaller organizations|||1
+South Asia|||1
+Sport and anti-doping bodies|||1
+Sport and events|||1
+Turkey||TR|1
+Ukraine||UA|1
+United States and Canada||US;CA|1
+United States and Guam||US;GU|1
+US companies in general||US|1
+Victim countries|||1
+Virtualization|||1
+Water and wastewater, United States||US|1
+Web users and website owners|||1
+Websites imitated|||1
+Wider sector list (Bangladesh CERT, 2024)||BD|1
+Worldwide|||1

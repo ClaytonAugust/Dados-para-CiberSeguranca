@@ -1,0 +1,22 @@
+original|action|result
+Git (git.exe, gcmd.exe)|alias|Git [git.exe, gcmd.exe]
+Mimikatz and LaZagne|split|Mimikatz; LaZagne
+ELECTRICFISH and VIVACIOUSGIFT|split|ELECTRICFISH; VIVACIOUSGIFT
+VBS and PowerShell malware|skip|
+BITS 1.0 and BITS 2.0|alias|BITS [BITS 1.0, BITS 2.0]
+PsExec, SNScan and Putty|split|PsExec; SNScan; PuTTY
+SIMPLESEESHARP and SPORTSBALL|split|SIMPLESEESHARP; SPORTSBALL
+Nishang and PowerCat|split|Nishang; PowerCat
+VeraCrypt and NetBird|split|VeraCrypt; NetBird
+PhoenixLocker, PayloadBIN and Macaw|split|PhoenixLocker; PayloadBIN; Macaw
+MeshCentral and MeshAgent|alias|MeshCentral [MeshAgent]
+Atera, Teramind, AnyDesk and ngrok|split|Atera; Teramind; AnyDesk; ngrok
+noPac, Kerbrute and PetitPotam|split|noPac; Kerbrute; PetitPotam
+Windows Sandbox and VS Code (abused)|split|Windows Sandbox; VS Code
+TCLproxy.tcl and map.tcl|split|TCLproxy.tcl; map.tcl
+WinSCP and S3 Browser|split|WinSCP; S3 Browser
+Word and PDF lures|skip|
+CVE-2017-11882 and CVE-2020-0674|skip|
+Sliver and Vshell|split|Sliver; Vshell
+Neuron and Nautilus|split|Neuron; Nautilus
+Built-in Windows tools (wmic, ntdsutil, netsh, PowerShell)|split|wmic; ntdsutil; netsh; PowerShell

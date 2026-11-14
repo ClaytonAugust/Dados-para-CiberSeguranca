@@ -24,6 +24,7 @@ from cti_graphrag.ingest.vocab import (
 )
 
 PROCESSED_DIR = PROJECT_ROOT / "data" / "processed"
+CURATED_DIR = PROJECT_ROOT / "data" / "curated"
 _NO_ORIGIN = ("not stated", "not attributed")
 _LIST_SEPARATOR = re.compile(r",\s*|\s+and\s+")
 _PARENTHETICAL = re.compile(r"\s*\([^)]*\)")
@@ -152,14 +153,57 @@ class SoftwareMatch:
     method: str  # "url_slug" | "name" | "alias" | "name_slug" | "new"
 
 
+@dataclass(frozen=True)
+class CompositeTool:
+    """A reviewed tool entry that names several tools or one tool with aliases."""
+
+    action: str  # "split" | "alias" | "skip"
+    items: tuple[tuple[str, tuple[str, ...]], ...]  # (name, aliases)
+
+
+@dataclass(frozen=True)
+class ToolTarget:
+    match: SoftwareMatch
+    name: str
+    aliases: tuple[str, ...] = ()
+
+
+_ITEM_ALIASES = re.compile(r"^(.*?)\s*\[(.*)\]$")
+
+
+def load_composite_tools(path: Path | None = None) -> dict[str, CompositeTool]:
+    """Read ``data/curated/composite_tools.csv`` (``original|action|result``), reviewed by hand."""
+    path = path or CURATED_DIR / "composite_tools.csv"
+    composites: dict[str, CompositeTool] = {}
+    with path.open(encoding="utf-8", newline="") as fh:
+        for row in csv.DictReader(fh, delimiter="|"):
+            action = row["action"].strip()
+            if action not in {"split", "alias", "skip"}:
+                raise ValueError(f"Ação desconhecida em {path.name}: {action!r}")
+            items = []
+            for item in filter(None, (p.strip() for p in (row["result"] or "").split(";"))):
+                found = _ITEM_ALIASES.match(item)
+                if found:
+                    aliases = tuple(a.strip() for a in found.group(2).split(",") if a.strip())
+                    items.append((found.group(1).strip(), aliases))
+                else:
+                    items.append((item, ()))
+            composites[row["original"].strip()] = CompositeTool(action, tuple(items))
+    return composites
+
+
 class SoftwareIndex:
     """Matches tool/malware references to malware.json before creating a new Software.
 
     Order: slug of the URL (when the reference has one), exact name, alias, and the
-    slugified name against the malware slugs. Case is ignored.
+    slugified name against the malware slugs. Case is ignored. Entries listed in
+    ``composites`` are split, aliased or skipped as reviewed in the curated file.
     """
 
-    def __init__(self, malware: list[Malware]) -> None:
+    def __init__(
+        self, malware: list[Malware], composites: dict[str, CompositeTool] | None = None
+    ) -> None:
+        self._composites = composites or {}
         self._slugs = {m.slug for m in malware}
         self._names = {m.name.casefold(): m.slug for m in malware}
         self._aliases: dict[str, str] = {}
@@ -180,6 +224,13 @@ class SoftwareIndex:
             return SoftwareMatch(f"software:{slugify(name)}", "name_slug")
         return SoftwareMatch(f"software:{slugify(name)}", "new")
 
+    def resolve(self, name: str, url: str | None = None) -> list[ToolTarget]:
+        """All Software a reference points to: [] if skipped, several if split."""
+        composite = self._composites.get(name.strip())
+        if composite is None:
+            return [ToolTarget(self.match(name, url), name.strip())]
+        return [ToolTarget(self.match(n), n, aliases) for n, aliases in composite.items]
+
 
 # --- report -------------------------------------------------------------------------
 def build_report(dataset: Dataset) -> dict:
@@ -197,11 +248,13 @@ def build_report(dataset: Dataset) -> dict:
 
     origins = [parse_origin(g.suspected_origin) for g in dataset.apt_groups]
 
-    index = SoftwareIndex(dataset.malware)
+    composites = load_composite_tools()
+    index = SoftwareIndex(dataset.malware, composites)
     tool_refs = [(t.name, None) for g in dataset.apt_groups for t in g.tools]
     tool_refs += [(m.name, m.url) for g in dataset.ransomware_groups for m in g.malware]
-    matches = [index.match(name, url) for name, url in tool_refs]
+    matches = [t.match for name, url in tool_refs for t in index.resolve(name, url)]
     malware_ids = {f"software:{m.slug}" for m in dataset.malware}
+    composite_refs = [name for name, _ in tool_refs if name.strip() in composites]
 
     return {
         "sectors": {
@@ -228,6 +281,9 @@ def build_report(dataset: Dataset) -> dict:
         "origin_no_edge_raw": sorted({o.raw or "<vazio>" for o in origins if not o.attribution}),
         "tools": {
             "refs": len(tool_refs),
+            "composite_refs": len(composite_refs),
+            "skipped_refs": sum(composites[n.strip()].action == "skip" for n in composite_refs),
+            "targets": len(matches),
             "by_method": dict(Counter(m.method for m in matches)),
             "malware_reached": len({m.software_id for m in matches} & malware_ids),
             "new_software_nodes": len({m.software_id for m in matches if m.method == "new"}),
@@ -244,9 +300,26 @@ def write_unmapped_sectors(unmapped: dict[str, list[str]], path: Path) -> None:
             writer.writerow([raw, len(slugs), ";".join(sorted(set(slugs)))])
 
 
+def write_sector_review(dataset: Dataset, path: Path) -> None:
+    """Every sector spelling with its mapping, most sectors first (for manual review)."""
+    counts = Counter(
+        raw for g in [*dataset.apt_groups, *dataset.ransomware_groups] for raw in g.target_sectors
+    )
+    rows = [(raw, map_sector(raw), n) for raw, n in counts.items()]
+    rows.sort(key=lambda r: (-len(r[1].sectors), -r[2], r[0].casefold()))
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with path.open("w", encoding="utf-8", newline="") as fh:
+        writer = csv.writer(fh, delimiter="|")
+        writer.writerow(["grafia", "setores", "pais", "contagem"])
+        for raw, mapping, n in rows:
+            writer.writerow([raw, ";".join(mapping.sectors), ";".join(mapping.countries), n])
+
+
 def main() -> None:
-    report = build_report(load_dataset())
+    dataset = load_dataset()
+    report = build_report(dataset)
     write_unmapped_sectors(report.pop("unmapped_sectors"), PROCESSED_DIR / "unmapped_sectors.csv")
+    write_sector_review(dataset, CURATED_DIR / "sector_mapping_review.csv")
     for key, value in report.items():
         print(f"{key}: {value}")
 
