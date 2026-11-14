@@ -61,20 +61,13 @@ Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
 
 ## 4. Testar a conexão
 
+Com o container rodando e a `.venv` ativa:
+
 ```powershell
-python test_connection.py
+pytest tests/test_connection.py -v
 ```
 
-Saída esperada:
-
-```text
-Conexão com FalkorDB: OK
-Servidor: 127.0.0.1:6379
-Grafo selecionado: cti_gold
-Consulta Cypher: RETURN 1 AS status -> OK
-```
-
-O teste apenas seleciona/cria o grafo vazio `cti_gold` e executa uma consulta `RETURN`; não importa dados do dataset.
+Saída esperada: `4 passed`. Os testes conectam no grafo do `GRAPH_NAME`, conferem que um valor passado como parâmetro volta como texto (sem ser executado), que `read_only=True` recusa escrita e que o timeout corta uma consulta lenta. Não importam dados do dataset.
 
 ## 5. Operações úteis
 
@@ -105,6 +98,7 @@ Com a `.venv` ativa, na raiz do projeto:
 ```powershell
 ruff check .                      # lint
 pytest -m "not integration"       # testes unitários (sem banco, sem internet)
+pytest -m integration             # testes contra o FalkorDB real (docker compose up -d)
 ```
 
 O `.env` precisa ter todas as variáveis do `.env.example`. Se faltar alguma, `cti_graphrag.config.load_settings()` falha listando todas as ausentes de uma vez.
@@ -116,7 +110,15 @@ O `.env` precisa ter todas as variáveis do `.env.example`. Se faltar alguma, `c
 | 14/11/2026 | `config.py` exige as 8 variáveis do `.env`, inclusive `LLM_MODEL` e `LLM_API_KEY`; valor vazio conta como ausente | Validar só as variáveis de cada módulo | Erro de configuração aparece cedo e num lugar só |
 | 14/11/2026 | Variável de ambiente do processo tem prioridade sobre o `.env` | Só o arquivo | Permite trocar o grafo (`GRAPH_NAME=cti_extracted`) sem editar arquivo |
 | 14/11/2026 | `requirements.txt` convertido de UTF-16 para UTF-8, com `pytest` e `ruff` fixados | Manter UTF-16 | Padrão das ferramentas Python e diffs legíveis no Git |
+| 14/11/2026 | `run_query` com `read_only=True` usa `GRAPH.RO_QUERY` | Só filtrar palavras-chave no Cypher | O próprio servidor recusa escrita; o filtro do `cypher_guard` vira uma segunda barreira, não a única |
+| 14/11/2026 | Timeout padrão de 10 s por consulta, aplicado pelo servidor | Sem timeout; timeout só no socket | Consulta gerada por LLM pode explodir em caminhos; o servidor corta e devolve erro claro |
+
+## Como funciona
+
+- **Configuração** (`src/cti_graphrag/config.py`): `load_settings()` lê o `.env` e devolve um objeto imutável; a chave do LLM não aparece ao imprimir.
+- **Acesso ao grafo** (`src/cti_graphrag/graph/client.py`): `get_graph(name)` reaproveita uma única conexão; `run_query(cypher, params, timeout_ms=..., read_only=...)` só aceita parâmetros em dict, para nenhum valor do usuário ser colado no Cypher.
 
 ## Limitações e pendências
 
-- O LLM ainda não foi escolhido: no `.env` local, `LLM_MODEL` e `LLM_API_KEY` têm valores provisórios só para a configuração carregar.
+- Em 14/11/2026 a chamada mínima ao LLM pelo LiteLLM falhou: o Google recusou a chave (`API_KEY_INVALID`) e o `LLM_MODEL` estava com texto de exemplo. Falta corrigir o `.env` e repetir.
+- `run_query` devolve o `QueryResult` cru do FalkorDB; converter para dicts fica para quando a Recuperação precisar.

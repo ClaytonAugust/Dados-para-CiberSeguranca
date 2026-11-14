@@ -1,59 +1,35 @@
-import os
-import sys
-from pathlib import Path
+"""Integration tests against the real FalkorDB from docker compose."""
 
-from dotenv import load_dotenv
-from falkordb import FalkorDB
+import pytest
+from redis.exceptions import ResponseError
 
+from cti_graphrag.config import load_settings
+from cti_graphrag.graph.client import get_graph, run_query
 
-def main() -> int:
-    # Localiza o .env na raiz do projeto
-    project_root = Path(__file__).resolve().parents[1]
-    env_file = project_root / ".env"
-
-    # Carrega as variáveis de ambiente
-    load_dotenv(dotenv_path=env_file)
-
-    host = os.getenv("FALKORDB_HOST", "127.0.0.1")
-    port_raw = os.getenv("FALKORDB_PORT", "6379")
-    graph_name = os.getenv("GRAPH_NAME", "cti_gold")
-
-    try:
-        port = int(port_raw)
-    except ValueError:
-        print(f"FALKORDB_PORT inválida: {port_raw!r}")
-        return 2
-
-    try:
-        # Conecta ao FalkorDB
-        db = FalkorDB(host=host, port=port)
-
-        # Seleciona o grafo
-        graph = db.select_graph(graph_name)
-
-        # Executa consulta de teste
-        result = graph.query("RETURN 1 AS status")
-
-    except Exception as exc:
-        print("Não foi possível conectar ao FalkorDB.")
-        print(f"Destino: {host}:{port}")
-        print(f"Grafo: {graph_name}")
-        print(f"Erro: {exc}")
-        print("Verifique: docker compose ps")
-
-        return 1
-
-    if not result.result_set or result.result_set[0][0] != 1:
-        print("A consulta retornou um resultado inesperado.")
-        return 1
-
-    print("\nConexão com FalkorDB: OK")
-    print(f"Servidor: {host}:{port}")
-    print(f"Grafo selecionado: {graph_name}")
-    print("Consulta Cypher: RETURN 1 AS status -> OK")
-
-    return 0
+pytestmark = pytest.mark.integration
 
 
-if __name__ == "__main__":
-    sys.exit(main())
+@pytest.fixture(scope="module")
+def graph():
+    return get_graph()
+
+
+def test_connects_to_configured_graph(graph):
+    assert graph.name == load_settings().graph_name
+    assert run_query("RETURN 1 AS status", graph=graph).result_set == [[1]]
+
+
+def test_parameter_is_treated_as_value(graph):
+    malicious = "x' }) MATCH (n) DETACH DELETE n //"
+    result = run_query("RETURN $value AS v", {"value": malicious}, graph=graph, read_only=True)
+    assert result.result_set == [[malicious]]
+
+
+def test_read_only_rejects_writes(graph):
+    with pytest.raises(ResponseError, match="read-only"):
+        run_query("CREATE (:ProbeNode {x: 1})", graph=graph, read_only=True)
+
+
+def test_timeout_stops_slow_query(graph):
+    with pytest.raises(ResponseError, match="timed out"):
+        run_query("UNWIND range(1, 200000000) AS x RETURN count(x)", graph=graph, timeout_ms=5)
