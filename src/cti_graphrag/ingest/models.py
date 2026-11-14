@@ -8,9 +8,11 @@ Reading-level normalizations (applied while parsing, raw meaning preserved):
   normalized to ATT&CK style ("Command And Control" -> "Command and Control");
 - ``motivation`` comes as PHP-serialized arrays (``a:1:{i:0;s:9:"espionage";}``)
   or comma-separated text: both become a list of lowercase strings;
-- article titles used as names ("Amadey Malware: How the Loader Works") are cut
-  before the colon, without the "Malware"/"Ransomware"/"Threat Actor" suffix;
-  the original goes to ``title_raw`` (groups and malware only).
+- article titles used as names ("Amadey Malware: How the Loader Works") keep the
+  first N words, N = number of parts of the slug; the original goes to
+  ``title_raw`` (groups and malware only);
+- technique page titles lose the " (Txxxx)" / " (Txxxx): ATT&CK Technique" tail;
+  the colon in sub-technique names ("Server Software Component: Web Shell") stays.
 """
 
 from __future__ import annotations
@@ -31,7 +33,7 @@ _LOWERCASE_WORDS = {"and", "or", "of", "the", "to", "in", "for"}
 _PHP_ARRAY = re.compile(r"^a:\d+:\{.*\}$", re.DOTALL)
 # The declared length is ignored on purpose: the data has s:10:"espionage" (9 chars).
 _PHP_STRING = re.compile(r's:\d+:"([^"]*)"')
-_TITLE_SUFFIXES = ("Threat Actor", "Ransomware", "Malware")
+_TECHNIQUE_TAIL = re.compile(r"\s*\(T\d{4}(?:\.\d{3})?\)(?::\s*ATT&CK Technique)?\s*$")
 
 
 def blank_to_none(value: Any) -> Any:
@@ -93,17 +95,25 @@ def parse_motivation(value: Any) -> list[str]:
     return motivations
 
 
-def split_title(name: str) -> tuple[str, str | None]:
-    """``"Nefilim Ransomware: Profile..."`` -> ``("Nefilim", original)``; no colon -> ``None``."""
+def split_title(name: str, slug: str) -> tuple[str, str | None]:
+    """Title used as name -> first N words, N = parts of the slug.
+
+    ``("ROMULUS ClickFix Delivery Platform: ...", "romulus-clickfix")`` ->
+    ``("ROMULUS ClickFix", original)``. Names without a colon are kept (``None``).
+    """
     name = name.strip()
     if ":" not in name:
         return name, None
-    head = name.split(":", 1)[0].strip()
-    for suffix in _TITLE_SUFFIXES:
-        if head.casefold().endswith(" " + suffix.casefold()):
-            head = head[: -len(suffix)].strip()
-            break
-    return head, name
+    n_words = len([part for part in slug.split("-") if part])
+    words = name.replace(":", " ").split()
+    return " ".join(words[:n_words]), name
+
+
+def clean_technique_title(name: str) -> tuple[str, str | None]:
+    """``"Phishing (T1566): ATT&CK Technique"`` -> ``("Phishing", original)``."""
+    name = name.strip()
+    cleaned = _TECHNIQUE_TAIL.sub("", name)
+    return (cleaned, name) if cleaned != name else (name, None)
 
 
 OptStr = Annotated[str | None, BeforeValidator(blank_to_none)]
@@ -160,8 +170,13 @@ class _TitledItem(_Item):
     @model_validator(mode="before")
     @classmethod
     def _split_title(cls, data: Any) -> Any:
-        if isinstance(data, dict) and isinstance(data.get("name"), str) and "title_raw" not in data:
-            name, raw = split_title(data["name"])
+        if (
+            isinstance(data, dict)
+            and isinstance(data.get("name"), str)
+            and isinstance(data.get("slug"), str)
+            and "title_raw" not in data
+        ):
+            name, raw = split_title(data["name"], data["slug"])
             if raw is not None:
                 return {**data, "name": name, "title_raw": raw}
         return data
@@ -200,5 +215,22 @@ class Malware(_TitledItem):
 
 
 class AttackTechnique(_Item):
+    """Technique page. Its name is used only when no group/malware list names it."""
+
     mitre_attack_id: str
     tactics: Tactics = Field(default_factory=list, alias="tactic")
+    title_raw: OptStr = None
+
+    @model_validator(mode="before")
+    @classmethod
+    def _clean_title(cls, data: Any) -> Any:
+        if isinstance(data, dict) and isinstance(data.get("name"), str) and "title_raw" not in data:
+            name, raw = clean_technique_title(data["name"])
+            if raw is not None:
+                return {**data, "name": name, "title_raw": raw}
+        return data
+
+    @field_validator("mitre_attack_id")
+    @classmethod
+    def _upper_id(cls, value: str) -> str:
+        return value.strip().upper()

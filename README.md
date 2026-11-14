@@ -98,7 +98,7 @@ Com a `.venv` ativa, na raiz do projeto:
 ```powershell
 ruff check .                      # lint
 pytest -m "not integration"       # testes unitários (sem banco, sem internet)
-pytest -m integration             # testes contra o FalkorDB real (docker compose up -d)
+pytest -m integration             # FalkorDB real; inclui o teste de conexão da seção 4
 ```
 
 O `.env` precisa ter todas as variáveis do `.env.example`. Se faltar alguma, `cti_graphrag.config.load_settings()` falha listando todas as ausentes de uma vez.
@@ -107,7 +107,8 @@ O `.env` precisa ter todas as variáveis do `.env.example`. Se faltar alguma, `c
 
 - Fonte: Brandefense threat-actor-dataset (CC-BY-4.0), em `data/raw/` (versionado no Git).
 - Lidos e validados com Pydantic (`src/cti_graphrag/ingest/`): 52 APT, 28 ransomware, 59 malwares e 42 técnicas, iguais ao `meta.count` de cada arquivo.
-- Limpeza na leitura: aliases em dois formatos (objeto nas APT, string nos demais) viram lista de strings; strings vazias viram nulo (ex.: 8 APT sem `suspected_origin`); táticas combinadas são separadas e a grafia unificada, o que reduz 28 grafias a 17 táticas; `motivation` em PHP serializado (`a:1:{i:0;s:9:"espionage";}`) ou texto com vírgulas vira lista (4 valores: espionage, financial, influence, sabotage); 5 nomes que eram título de artigo (ex.: "Amadey Malware: How the Loader Works...") viram o nome curto ("Amadey"), com o original em `title_raw`.
+- Limpeza na leitura: aliases em dois formatos (objeto nas APT, string nos demais) viram lista de strings; strings vazias viram nulo (ex.: 8 APT sem `suspected_origin`); táticas combinadas são separadas e a grafia unificada, o que reduz 28 grafias a 17 táticas; `motivation` em PHP serializado (`a:1:{i:0;s:9:"espionage";}`) ou texto com vírgulas vira lista (4 valores: espionage, financial, influence, sabotage); 5 nomes de grupo ou malware que eram título de artigo (ex.: "Amadey Malware: How the Loader Works...") viram o nome curto ("Amadey"), com o original em `title_raw`.
+- Nome de técnica: vale o das listas `attack_techniques` de grupos e malwares (nome do ATT&CK); a página de `attack-techniques.json` só é usada para os 7 IDs que nenhuma lista cita, sem o final " (Txxxx)" ou " (Txxxx): ATT&CK Technique" (original em `title_raw`).
 - Slug repetido é checado por arquivo: akira, black-basta, conti e revil existem como grupo de ransomware e como malware, e isso é esperado.
 
 ## Schema e IDs
@@ -127,7 +128,8 @@ O `.env` precisa ter todas as variáveis do `.env.example`. Se faltar alguma, `c
 | 14/11/2026 | Timeout padrão de 10 s por consulta, aplicado pelo servidor | Sem timeout; timeout só no socket | Consulta gerada por LLM pode explodir em caminhos; o servidor corta e devolve erro claro |
 | 14/11/2026 | Modelos Pydantic com `extra="forbid"` | Aceitar campos extras em silêncio | Se a Brandefense mudar o formato, a leitura falha em vez de perder dado sem aviso |
 | 14/11/2026 | `motivation` em PHP serializado é lido pelas strings entre aspas, ignorando o tamanho declarado | Desserializar PHP de verdade | O dado traz `s:10:"espionage"` (9 letras); um desserializador estrito falharia |
-| 14/11/2026 | Nome com ":" (título de artigo) vira o trecho antes dos dois-pontos, sem "Malware", "Ransomware" ou "Threat Actor"; original em `title_raw` | Manter o título como nome | O nome curto é o que o usuário digita e o que casa com tools e aliases |
+| 14/11/2026 | Nome de grupo ou malware com ":" (título de artigo) vira as N primeiras palavras, N = partes do slug ("ROMULUS ClickFix"); original em `title_raw` | Manter o título; cortar sufixos ("Malware", "Ransomware") de uma lista | O slug já diz quantas palavras tem o nome; uma lista de sufixos deixava "Delivery Platform" |
+| 14/11/2026 | Technique: chave é o ID do ATT&CK; nome das listas de grupos e malwares tem prioridade sobre o título da página; ":" não é cortado em técnica | Usar o título da página | O título da página é de artigo ("Phishing (T1566): ATT&CK Technique") e o ":" é legítimo em subtécnica ("Server Software Component: Web Shell") |
 | 14/11/2026 | ASSOCIATED_WITH tem `attribution`: `suspected` se a origem traz "(suspected)", `attributed` nos demais casos com país; sem país não há aresta e o texto vai para `origin_raw` | Aresta para todo valor; nó "Unknown" | Não inventar país e não misturar suspeita com atribuição nas respostas |
 
 ## Como funciona
@@ -141,5 +143,4 @@ O `.env` precisa ter todas as variáveis do `.env.example`. Se faltar alguma, `c
 - Em 14/11/2026 a chamada mínima ao LLM pelo LiteLLM falhou: o Google recusou a chave (`API_KEY_INVALID`) e o `LLM_MODEL` estava com texto de exemplo. Falta corrigir o `.env` e repetir.
 - `run_query` devolve o `QueryResult` cru do FalkorDB; converter para dicts fica para quando a Recuperação precisar.
 - O `docs/dataset.md` do repositório não numera armadilhas (1 a 12); as correções seguem as instruções explícitas da Fase 2, não essa numeração.
-- 6 nomes de `attack-techniques.json` também têm ":" (ex.: "Phishing (T1566): ATT&CK Technique") e não foram alterados: a regra de título vale só para grupos e malwares.
-- "ROMULUS ClickFix Delivery Platform" mantém "Delivery Platform", porque não está na lista de sufixos.
+- Além do final " (Txxxx): ATT&CK Technique", também é removido o final " (Txxxx)" sem o resto (5 páginas, ex.: "Web Shell (T1505.003)"); em todos os 6 casos o nome da lista tem prioridade, então isso não muda nenhum nome no grafo.

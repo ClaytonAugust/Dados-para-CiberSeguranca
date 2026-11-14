@@ -10,6 +10,7 @@ from pydantic import ValidationError
 
 from cti_graphrag.ingest.models import (
     AptGroup,
+    AttackTechnique,
     Malware,
     TechniqueRef,
     blank_to_none,
@@ -19,7 +20,8 @@ from cti_graphrag.ingest.models import (
     split_tactics,
     split_title,
 )
-from cti_graphrag.ingest.read import DatasetError, load_dataset, read_file
+from cti_graphrag.ingest.normalize import technique_names
+from cti_graphrag.ingest.read import Dataset, DatasetError, load_dataset, read_file
 
 
 # --- aliases: objects (APT) and strings (ransomware/malware) ----------------
@@ -91,19 +93,61 @@ def test_parse_motivation(raw, expected):
 
 # --- article titles used as names ---------------------------------------------
 @pytest.mark.parametrize(
-    "raw,expected",
+    "raw,slug,expected",
     [
-        ("Nefilim Ransomware: Profile, Tactics and the Stryzhak Case", "Nefilim"),
-        ("k0t Threat Actor: Edge Device Campaign", "k0t"),
-        ("Amadey Malware: How the Loader Works", "Amadey"),
-        ("ROMULUS ClickFix Delivery Platform: Payloads", "ROMULUS ClickFix Delivery Platform"),
-        ("Lazarus Group", "Lazarus Group"),
+        ("Nefilim Ransomware: Profile, Tactics and the Stryzhak Case", "nefilim", "Nefilim"),
+        ("k0t Threat Actor: Edge Device Campaign", "k0t", "k0t"),
+        ("ROMULUS ClickFix Delivery Platform: Payloads", "romulus-clickfix", "ROMULUS ClickFix"),
+        ("Lazarus Group", "lazarus-group", "Lazarus Group"),
     ],
 )
-def test_split_title(raw, expected):
-    name, title_raw = split_title(raw)
+def test_split_title(raw, slug, expected):
+    name, title_raw = split_title(raw, slug)
     assert name == expected
     assert title_raw == (raw if ":" in raw else None)
+
+
+# --- technique names ----------------------------------------------------------
+def test_technique_page_title_tail_is_removed():
+    page = AttackTechnique.model_validate(
+        {"name": "Phishing (T1566): ATT&CK Technique", "slug": "t1566", "mitre_attack_id": "T1566"}
+    )
+    assert page.name == "Phishing"
+    assert page.title_raw == "Phishing (T1566): ATT&CK Technique"
+
+
+def test_subtechnique_colon_is_kept():
+    ref = TechniqueRef.model_validate(
+        {"id": "T1592.002", "name": "Gather Victim Host Information: Software"}
+    )
+    assert ref.name == "Gather Victim Host Information: Software"
+    page = AttackTechnique.model_validate(
+        {"name": "Server Software Component: Web Shell", "slug": "x", "mitre_attack_id": "T1505"}
+    )
+    assert page.name == "Server Software Component: Web Shell"
+    assert page.title_raw is None
+
+
+def test_list_name_wins_over_page_name():
+    ref = {"id": "T1566", "name": "Phishing", "tactic": "Initial Access"}
+    pages = [
+        {"name": "Phishing (T1566): ATT&CK Technique", "slug": "a", "mitre_attack_id": "T1566"},
+        {"name": "Input Capture (T1056)", "slug": "b", "mitre_attack_id": "T1056"},
+    ]
+    group = AptGroup.model_validate({"name": "G", "slug": "g", "attack_techniques": [ref]})
+    dataset = Dataset(
+        apt_groups=[group],
+        ransomware_groups=[],
+        malware=[],
+        attack_techniques=[AttackTechnique.model_validate(p) for p in pages],
+    )
+    assert technique_names(dataset) == {"T1566": "Phishing", "T1056": "Input Capture"}
+
+
+def test_real_technique_names_have_no_page_tails():
+    names = technique_names(load_dataset())
+    assert names["T1102.001"] == "Web Service: Dead Drop Resolver"
+    assert not any("ATT&CK Technique" in n or n.endswith(")") for n in names.values())
 
 
 def test_model_keeps_original_title():
