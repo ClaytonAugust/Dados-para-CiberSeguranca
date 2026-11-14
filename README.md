@@ -109,6 +109,11 @@ O `.env` precisa ter todas as variáveis do `.env.example`. Se faltar alguma, `c
 - Lidos e validados com Pydantic (`src/cti_graphrag/ingest/`): 52 APT, 28 ransomware, 59 malwares e 42 técnicas, iguais ao `meta.count` de cada arquivo.
 - Limpeza na leitura: aliases em dois formatos (objeto nas APT, string nos demais) viram lista de strings; strings vazias viram nulo (ex.: 8 APT sem `suspected_origin`); táticas combinadas são separadas e a grafia unificada, o que reduz 28 grafias a 17 táticas; `motivation` em PHP serializado (`a:1:{i:0;s:9:"espionage";}`) ou texto com vírgulas vira lista (4 valores: espionage, financial, influence, sabotage); 5 nomes de grupo ou malware que eram título de artigo (ex.: "Amadey Malware: How the Loader Works...") viram o nome curto ("Amadey"), com o original em `title_raw`.
 - Nome de técnica: vale o das listas `attack_techniques` de grupos e malwares (nome do ATT&CK); a página de `attack-techniques.json` só é usada para os 7 IDs que nenhuma lista cita, sem o final " (Txxxx)" ou " (Txxxx): ATT&CK Technique" (original em `title_raw`).
+- Normalização (`python -m cti_graphrag.ingest.normalize`), medida em 14/11/2026:
+  - **Setores:** 475 referências (317 grafias) em 20 slugs da lista fechada. 368 (77,5%) caem em algum setor; mais 31 só citam país e viram `Country` (84,0% no total); 76 (64 grafias) ficam sem mapeamento, em `sectors_raw` e em `data/processed/unmapped_sectors.csv`.
+  - **Regiões:** 131 referências; 91 viram só países, 7 viram países com sobra em `regions_raw` e 33 não têm país (ex.: "Europe", "Worldwide"); 43 países distintos.
+  - **Origem:** 39 `attributed`, 2 `suspected`, 11 sem aresta (8 vazias e 3 "Not stated/Not attributed").
+  - **Tools:** 480 referências; casam com `malware.json` 31 pelo slug da URL, 90 pelo nome e 8 por alias (129, alcançando 49 dos 59 softwares); 351 não casam e viram 333 nós Software novos.
 - Slug repetido é checado por arquivo: akira, black-basta, conti e revil existem como grupo de ransomware e como malware, e isso é esperado.
 
 ## Schema e IDs
@@ -130,11 +135,17 @@ O `.env` precisa ter todas as variáveis do `.env.example`. Se faltar alguma, `c
 | 14/11/2026 | `motivation` em PHP serializado é lido pelas strings entre aspas, ignorando o tamanho declarado | Desserializar PHP de verdade | O dado traz `s:10:"espionage"` (9 letras); um desserializador estrito falharia |
 | 14/11/2026 | Nome de grupo ou malware com ":" (título de artigo) vira as N primeiras palavras, N = partes do slug ("ROMULUS ClickFix"); original em `title_raw` | Manter o título; cortar sufixos ("Malware", "Ransomware") de uma lista | O slug já diz quantas palavras tem o nome; uma lista de sufixos deixava "Delivery Platform" |
 | 14/11/2026 | Technique: chave é o ID do ATT&CK; nome das listas de grupos e malwares tem prioridade sobre o título da página; ":" não é cortado em técnica | Usar o título da página | O título da página é de artigo ("Phishing (T1566): ATT&CK Technique") e o ":" é legítimo em subtécnica ("Server Software Component: Web Shell") |
+| 14/11/2026 | Setor mapeado por palavras-chave para a lista fechada de 20 slugs; um valor pode dar vários setores ("Defense, media and communications in Japan" → defense, media, telecommunications + Japão) | Tabela manual das 317 grafias; LLM | Regras revisáveis num arquivo só (`ingest/vocab.py`) e sem chamar LLM no gold |
+| 14/11/2026 | País só pelo nome ou sigla (US, UK); gentílicos ("Iranian", "Israeli") não contam | Contar gentílicos | "Israeli-made equipment" e "Russian critics" não dizem o país alvo |
+| 14/11/2026 | Região em lista ("Germany, Czechia and France") vira um `Country` por item que é exatamente um país; o resto vai para `regions_raw` | Só valores com um único país, como dizia a proposta | Não perder países listados; continentes e blocos seguem sem nó |
+| 14/11/2026 | Na origem, a fonte citada no fim (", per the US Cyber Safety Review Board") é ignorada | Ler o texto todo | Senão o Lapsus$ ganharia origem US, que é quem atribuiu, não a origem |
+| 14/11/2026 | Tool casa com `malware.json` nesta ordem: slug da URL, nome, alias, nome em slug; sem casamento vira `software:<slug do nome>` com `has_page=false` | Criar sempre nó novo | Evita dois nós para o mesmo software (ex.: Uroburos → Snake) |
 | 14/11/2026 | ASSOCIATED_WITH tem `attribution`: `suspected` se a origem traz "(suspected)", `attributed` nos demais casos com país; sem país não há aresta e o texto vai para `origin_raw` | Aresta para todo valor; nó "Unknown" | Não inventar país e não misturar suspeita com atribuição nas respostas |
 
 ## Como funciona
 
 - **Leitura** (`src/cti_graphrag/ingest/read.py`): `load_dataset()` valida os 4 JSON com Pydantic, recusa campo desconhecido, slug repetido e contagem diferente do `meta`.
+- **Normalização** (`src/cti_graphrag/ingest/normalize.py` e `vocab.py`): `parse_origin`, `map_sector`, `map_region`, `SoftwareIndex.match` e `technique_names` transformam os campos estruturados em IDs da proposta, sem acessar o banco.
 - **Configuração** (`src/cti_graphrag/config.py`): `load_settings()` lê o `.env` e devolve um objeto imutável; a chave do LLM não aparece ao imprimir.
 - **Acesso ao grafo** (`src/cti_graphrag/graph/client.py`): `get_graph(name)` reaproveita uma única conexão; `run_query(cypher, params, timeout_ms=..., read_only=...)` só aceita parâmetros em dict, para nenhum valor do usuário ser colado no Cypher.
 
@@ -144,3 +155,6 @@ O `.env` precisa ter todas as variáveis do `.env.example`. Se faltar alguma, `c
 - `run_query` devolve o `QueryResult` cru do FalkorDB; converter para dicts fica para quando a Recuperação precisar.
 - O `docs/dataset.md` do repositório não numera armadilhas (1 a 12); as correções seguem as instruções explícitas da Fase 2, não essa numeração.
 - Além do final " (Txxxx): ATT&CK Technique", também é removido o final " (Txxxx)" sem o resto (5 páginas, ex.: "Web Shell (T1505.003)"); em todos os 6 casos o nome da lista tem prioridade, então isso não muda nenhum nome no grafo.
+- Setores: só 77,5% das referências caem num setor da lista; chega a 84,0% contando as que só citam país. "Critical infrastructure" e variantes (13 referências em 6 grafias) não tem slug na lista fechada e fica sem mapeamento.
+- 21 tools sem casamento são entradas compostas ("Mimikatz and LaZagne", "PsExec, SNScan and Putty") e viram um nó só; não foram separadas.
+- "Korea (Clop)" nas regiões fica em `regions_raw`: "Korea" sozinho não diz se é Norte ou Sul.

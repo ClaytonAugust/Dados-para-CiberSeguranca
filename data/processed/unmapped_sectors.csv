@@ -1,0 +1,65 @@
+raw_value,count,groups
+Critical infrastructure,8,apt34-oilrig;ember-bear;gamaredon;indrik-spider;sandworm;turla;unc3886;wizard-spider
+"Asia, Africa, Europe, North America",2,apt39;muddywater
+Middle East,2,apt34-oilrig;muddywater
+Other countries,2,cyberav3ngers;volt-typhoon
+Water and wastewater,2,ransomhub;volt-typhoon
+Website visitors,2,apt32;apt37
+All sectors,1,wizard-spider
+Any industry,1,k0t
+Asia Pacific,1,k0t
+Business,1,indrik-spider
+Business services (all sectors),1,play
+Businesses,1,apt27
+Caucasus and Eastern Europe,1,silent-lynx
+Central Asia,1,silent-lynx
+Central Europe,1,mirrorface
+Countries,1,andariel
+Critical infrastructure and private sector,1,handala
+Critical infrastructure networking devices,1,dragonfly
+Critical infrastructure organizations (all sectors),1,alphv-blackcat
+Critical national infrastructure,1,dragonforce
+Customer data,1,salt-typhoon
+EU and NATO states,1,laundry-bear
+East and Central Asia,1,laundry-bear
+Edge and remote access appliances,1,armory-castle
+Exposed network devices,1,k0t
+High-earning firms,1,indrik-spider
+Home and small office routers,1,volt-typhoon
+Individuals,1,shinyhunters
+Industries listed by MITRE,1,fin7
+Iranian private sector,1,apt39
+Israeli organizations,1,handala
+Israeli-made equipment,1,cyberav3ngers
+Key infrastructure (Clop),1,ta505
+"Large, high-revenue organizations across sectors",1,darkside
+Latin America,1,k0t
+Many industries (Clop),1,ta505
+Many sectors,1,armory-castle
+Middle East and Europe,1,apt33
+Middle East region,1,apt42
+Mobile phone users,1,bitter
+Multinational companies with subsidiaries,1,blacktech
+Multiple industries,1,apt33
+Named victims,1,fin7
+Network and virtualization equipment,1,unc3886
+Organizations running F5 BIG-IP,1,blacktech
+Organizations running Zimbra,1,laundry-bear
+Other devices of interest,1,k0t
+Other sectors,1,apt18
+Package maintainers,1,teampcp
+Private sector,1,apt32
+Professional services,1,bianlian
+Recruitment staff,1,apt-c-60
+Routers and edge devices,1,salt-typhoon
+Russian critics and the public,1,dragonfly
+Seven countries,1,salt-typhoon
+Smaller organizations,1,volt-typhoon
+South Asia,1,sidewinder
+Sport and anti-doping bodies,1,apt28
+Sport and events,1,sandworm
+Victim countries,1,menupass
+Virtualization,1,armory-castle
+Web users and website owners,1,ember-bear
+Websites imitated,1,apt36-transparent-tribe
+Worldwide,1,hafnium
