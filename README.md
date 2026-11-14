@@ -97,3 +97,26 @@ docker compose logs -f falkordb
 ```
 
 **Atenção:** não use `docker compose down -v` enquanto quiser preservar o banco. A opção `-v` remove o volume `falkordb_data` e os dados persistidos.
+
+## Como rodar
+
+Com a `.venv` ativa, na raiz do projeto:
+
+```powershell
+ruff check .                      # lint
+pytest -m "not integration"       # testes unitários (sem banco, sem internet)
+```
+
+O `.env` precisa ter todas as variáveis do `.env.example`. Se faltar alguma, `cti_graphrag.config.load_settings()` falha listando todas as ausentes de uma vez.
+
+## Decisões
+
+| Data | Decisão | Alternativas descartadas | Motivo |
+|---|---|---|---|
+| 14/11/2026 | `config.py` exige as 8 variáveis do `.env`, inclusive `LLM_MODEL` e `LLM_API_KEY`; valor vazio conta como ausente | Validar só as variáveis de cada módulo | Erro de configuração aparece cedo e num lugar só |
+| 14/11/2026 | Variável de ambiente do processo tem prioridade sobre o `.env` | Só o arquivo | Permite trocar o grafo (`GRAPH_NAME=cti_extracted`) sem editar arquivo |
+| 14/11/2026 | `requirements.txt` convertido de UTF-16 para UTF-8, com `pytest` e `ruff` fixados | Manter UTF-16 | Padrão das ferramentas Python e diffs legíveis no Git |
+
+## Limitações e pendências
+
+- O LLM ainda não foi escolhido: no `.env` local, `LLM_MODEL` e `LLM_API_KEY` têm valores provisórios só para a configuração carregar.
