@@ -11,6 +11,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import Any
 
+from cti_graphrag.ingest.chunks import SOURCE, build_chunks, doc_id
 from cti_graphrag.ingest.models import TechniqueRef
 from cti_graphrag.ingest.normalize import (
     CompositeTool,
@@ -23,8 +24,6 @@ from cti_graphrag.ingest.normalize import (
 )
 from cti_graphrag.ingest.read import Dataset
 from cti_graphrag.ingest.vocab import COUNTRY_BY_CODE, SECTOR_NAMES
-
-SOURCE = "brandefense"
 
 
 @dataclass
@@ -82,12 +81,16 @@ class GoldGraph:
         elif doc_id not in edge.props["doc_ids"]:
             edge.props["doc_ids"].append(doc_id)
 
+    def add_structural_edge(
+        self, rel_type: str, from_node: tuple[str, str], to_node: tuple[str, str], doc_id: str
+    ) -> None:
+        """PART_OF / MENTIONED_IN: no evidence or confidence, just provenance."""
+        key = (rel_type, from_node[1], to_node[1])
+        props = {"source": "gold", "doc_id": doc_id}
+        self.edges.setdefault(key, Edge(rel_type, *from_node, *to_node, props))
+
     def has(self, label: str, node_id: str) -> bool:
         return node_id in self.nodes.get(label, {})
-
-
-def doc_id(file: str, slug: str) -> str:
-    return f"doc:{SOURCE}:{file}:{slug}"
 
 
 def tactic_id(name: str) -> str:
@@ -289,6 +292,16 @@ def build_gold(dataset: Dataset, composites: dict[str, CompositeTool] | None = N
         did, evidence = first_seen_in[sub_id]
         gold.add_edge(
             "SUBTECHNIQUE_OF", ("Technique", sub_id), ("Technique", parent_id), did, evidence
+        )
+
+    # Chunks: PART_OF to their Document; MENTIONED_IN only from the document's own
+    # subject (no name search in the text, which would be extraction, not gold).
+    for chunk in build_chunks(dataset):
+        node = ("Chunk", chunk.id)
+        gold.add_node(*node, text=chunk.text, doc_id=chunk.doc_id, n=chunk.n)
+        gold.add_structural_edge("PART_OF", node, ("Document", chunk.doc_id), chunk.doc_id)
+        gold.add_structural_edge(
+            "MENTIONED_IN", (chunk.subject_label, chunk.subject_id), node, chunk.doc_id
         )
 
     for label in ("Group", "Software"):

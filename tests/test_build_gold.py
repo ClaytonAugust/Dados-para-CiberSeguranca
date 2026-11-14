@@ -132,7 +132,7 @@ def test_build_gold_ids_and_properties(tiny_dataset):
 
 def test_plan_skips_what_the_schema_lacks(tiny_dataset, schema):
     plan = plan_load(build_gold(tiny_dataset), schema)
-    assert plan.skipped_labels == {"Sector": 1}
+    assert plan.skipped_labels == {"Sector": 1, "Chunk": 4}  # not in this test schema
     assert plan.skipped_edges["DESCRIBES (Document->Group)"] == 2
     assert plan.skipped_edges["BELONGS_TO (Technique->Tactic)"] == 1
     assert "Group" in plan.nodes

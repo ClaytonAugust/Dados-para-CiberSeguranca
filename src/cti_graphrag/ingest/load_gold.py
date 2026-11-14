@@ -9,11 +9,13 @@ written; anything else is skipped with a warning and a count. Writes use MERGE o
 
 from __future__ import annotations
 
+import argparse
 import logging
 from collections import Counter, defaultdict
 from dataclasses import dataclass, field
 
 from falkordb import Graph
+from redis.exceptions import ResponseError
 
 from cti_graphrag.graph.client import get_graph, run_query
 from cti_graphrag.graph.schema import GraphSchema, load_schema
@@ -94,7 +96,20 @@ def graph_counts(graph: Graph) -> tuple[dict[str, int], dict[str, int]]:
     return dict(labels.result_set), dict(rels.result_set)
 
 
-def load_gold(graph: Graph | None = None) -> dict:
+def reset_graph(graph: Graph) -> bool:
+    """Delete the whole graph. Returns False when it did not exist yet."""
+    try:
+        graph.delete()
+    except ResponseError as exc:
+        if "empty key" not in str(exc).lower() and "invalid graph" not in str(exc).lower():
+            raise
+        return False
+    return True
+
+
+def load_gold(graph: Graph | None = None, *, reset: bool = False) -> dict:
+    """Load the gold graph. ``reset=True`` deletes it first (use after changing
+    mappings or the schema, so nodes that no longer exist do not linger)."""
     schema = load_schema()
     gold = build_gold(load_dataset(), load_composite_tools())
     plan = plan_load(gold, schema)
@@ -103,11 +118,13 @@ def load_gold(graph: Graph | None = None) -> dict:
     for name, n in plan.skipped_edges.items():
         log.warning("Relação fora do schema %s, pulada: %d arestas", name, n)
     graph = graph if graph is not None else get_graph(schema.graphs.get("gold", "cti_gold"))
+    deleted = reset_graph(graph) if reset else False
     write_stats = write_plan(plan, graph)
     labels, rels = graph_counts(graph)
     return {
         "schema_version": schema.version,
         "graph": graph.name,
+        "reset": deleted,
         "write": write_stats,
         "skipped_labels": dict(plan.skipped_labels),
         "skipped_edges": dict(plan.skipped_edges),
@@ -116,9 +133,16 @@ def load_gold(graph: Graph | None = None) -> dict:
     }
 
 
-def main() -> None:
+def main(argv: list[str] | None = None) -> None:
+    parser = argparse.ArgumentParser(description="Carga idempotente do cti_gold.")
+    parser.add_argument(
+        "--reset",
+        action="store_true",
+        help="apaga o grafo antes de carregar (use ao mudar mapeamento ou schema)",
+    )
+    args = parser.parse_args(argv)
     logging.basicConfig(level=logging.WARNING, format="AVISO: %(message)s")
-    for key, value in load_gold().items():
+    for key, value in load_gold(reset=args.reset).items():
         print(f"{key}: {value}")
 
 
