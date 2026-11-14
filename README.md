@@ -103,6 +103,12 @@ pytest -m integration             # testes contra o FalkorDB real (docker compos
 
 O `.env` precisa ter todas as variáveis do `.env.example`. Se faltar alguma, `cti_graphrag.config.load_settings()` falha listando todas as ausentes de uma vez.
 
+## Dados
+
+- Fonte: Brandefense threat-actor-dataset (CC-BY-4.0), em `data/raw/` (versionado no Git).
+- Lidos e validados com Pydantic (`src/cti_graphrag/ingest/`): 52 APT, 28 ransomware, 59 malwares e 42 técnicas, iguais ao `meta.count` de cada arquivo.
+- Limpeza na leitura: aliases em dois formatos (objeto nas APT, string nos demais) viram lista de strings; strings vazias viram nulo (ex.: 8 APT sem `suspected_origin`); táticas combinadas são separadas e a grafia unificada, o que reduz 28 grafias a 17 táticas.
+
 ## Decisões
 
 | Data | Decisão | Alternativas descartadas | Motivo |
@@ -112,9 +118,11 @@ O `.env` precisa ter todas as variáveis do `.env.example`. Se faltar alguma, `c
 | 14/11/2026 | `requirements.txt` convertido de UTF-16 para UTF-8, com `pytest` e `ruff` fixados | Manter UTF-16 | Padrão das ferramentas Python e diffs legíveis no Git |
 | 14/11/2026 | `run_query` com `read_only=True` usa `GRAPH.RO_QUERY` | Só filtrar palavras-chave no Cypher | O próprio servidor recusa escrita; o filtro do `cypher_guard` vira uma segunda barreira, não a única |
 | 14/11/2026 | Timeout padrão de 10 s por consulta, aplicado pelo servidor | Sem timeout; timeout só no socket | Consulta gerada por LLM pode explodir em caminhos; o servidor corta e devolve erro claro |
+| 14/11/2026 | Modelos Pydantic com `extra="forbid"` | Aceitar campos extras em silêncio | Se a Brandefense mudar o formato, a leitura falha em vez de perder dado sem aviso |
 
 ## Como funciona
 
+- **Leitura** (`src/cti_graphrag/ingest/read.py`): `load_dataset()` valida os 4 JSON com Pydantic, recusa campo desconhecido, slug repetido e contagem diferente do `meta`.
 - **Configuração** (`src/cti_graphrag/config.py`): `load_settings()` lê o `.env` e devolve um objeto imutável; a chave do LLM não aparece ao imprimir.
 - **Acesso ao grafo** (`src/cti_graphrag/graph/client.py`): `get_graph(name)` reaproveita uma única conexão; `run_query(cypher, params, timeout_ms=..., read_only=...)` só aceita parâmetros em dict, para nenhum valor do usuário ser colado no Cypher.
 
@@ -122,3 +130,4 @@ O `.env` precisa ter todas as variáveis do `.env.example`. Se faltar alguma, `c
 
 - Em 14/11/2026 a chamada mínima ao LLM pelo LiteLLM falhou: o Google recusou a chave (`API_KEY_INVALID`) e o `LLM_MODEL` estava com texto de exemplo. Falta corrigir o `.env` e repetir.
 - `run_query` devolve o `QueryResult` cru do FalkorDB; converter para dicts fica para quando a Recuperação precisar.
+- A numeração das armadilhas citadas na Fase 2 (3, 4 e 10 na leitura) vem de um `docs/dataset.md` que não está no repositório; a leitura trata aliases em dois formatos, strings vazias e táticas combinadas, que podem não corresponder exatamente a essa numeração.
