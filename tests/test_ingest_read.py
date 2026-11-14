@@ -10,11 +10,14 @@ from pydantic import ValidationError
 
 from cti_graphrag.ingest.models import (
     AptGroup,
+    Malware,
     TechniqueRef,
     blank_to_none,
     canonical_tactic,
     normalize_aliases,
+    parse_motivation,
     split_tactics,
+    split_title,
 )
 from cti_graphrag.ingest.read import DatasetError, load_dataset, read_file
 
@@ -69,6 +72,46 @@ def test_technique_ref_uses_tactic_alias_and_uppercases_id():
     assert ref.tactics == ["Collection", "Credential Access"]
 
 
+# --- motivation: PHP-serialized arrays and plain text -------------------------
+@pytest.mark.parametrize(
+    "raw,expected",
+    [
+        ('a:1:{i:0;s:9:"espionage";}', ["espionage"]),
+        ('a:2:{i:0;s:9:"espionage";i:1;s:8:"sabotage";}', ["espionage", "sabotage"]),
+        ('a:1:{i:0;s:10:"espionage";}', ["espionage"]),  # wrong length in the data
+        ("espionage", ["espionage"]),
+        ("financial, Espionage, sabotage", ["financial", "espionage", "sabotage"]),
+        ("", []),
+        (None, []),
+    ],
+)
+def test_parse_motivation(raw, expected):
+    assert parse_motivation(raw) == expected
+
+
+# --- article titles used as names ---------------------------------------------
+@pytest.mark.parametrize(
+    "raw,expected",
+    [
+        ("Nefilim Ransomware: Profile, Tactics and the Stryzhak Case", "Nefilim"),
+        ("k0t Threat Actor: Edge Device Campaign", "k0t"),
+        ("Amadey Malware: How the Loader Works", "Amadey"),
+        ("ROMULUS ClickFix Delivery Platform: Payloads", "ROMULUS ClickFix Delivery Platform"),
+        ("Lazarus Group", "Lazarus Group"),
+    ],
+)
+def test_split_title(raw, expected):
+    name, title_raw = split_title(raw)
+    assert name == expected
+    assert title_raw == (raw if ":" in raw else None)
+
+
+def test_model_keeps_original_title():
+    malware = Malware.model_validate({"name": "Amadey Malware: How it Works", "slug": "amadey"})
+    assert malware.name == "Amadey"
+    assert malware.title_raw == "Amadey Malware: How it Works"
+
+
 # --- model ---------------------------------------------------------------------
 def test_apt_group_normalizes_fields():
     group = AptGroup.model_validate(
@@ -114,6 +157,22 @@ def test_load_real_dataset_counts():
         "malware": 59,
         "attack-techniques": 42,
     }
+
+
+def test_duplicate_slugs_are_checked_per_file_only():
+    # akira, black-basta, conti and revil are both a ransomware group and a malware
+    dataset = load_dataset()
+    shared = {g.slug for g in dataset.ransomware_groups} & {m.slug for m in dataset.malware}
+    assert shared == {"akira", "black-basta", "conti", "revil"}
+
+
+def test_real_dataset_names_and_motivations_are_clean():
+    dataset = load_dataset()
+    items = [*dataset.apt_groups, *dataset.ransomware_groups, *dataset.malware]
+    assert all(":" not in item.name for item in items)
+    assert sum(item.title_raw is not None for item in items) == 5
+    motivations = {m for g in dataset.apt_groups for m in g.motivation}
+    assert motivations == {"espionage", "financial", "influence", "sabotage"}
 
 
 def test_real_dataset_has_no_combined_or_miscased_tactics():

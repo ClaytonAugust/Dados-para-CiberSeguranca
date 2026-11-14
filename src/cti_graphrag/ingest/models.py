@@ -5,16 +5,33 @@ Reading-level normalizations (applied while parsing, raw meaning preserved):
   malware): both become a list of unique, non-empty strings;
 - empty strings become ``None`` in optional text fields;
 - combined tactics ("Persistence, Privilege Escalation") are split, and case is
-  normalized to ATT&CK style ("Command And Control" -> "Command and Control").
+  normalized to ATT&CK style ("Command And Control" -> "Command and Control");
+- ``motivation`` comes as PHP-serialized arrays (``a:1:{i:0;s:9:"espionage";}``)
+  or comma-separated text: both become a list of lowercase strings;
+- article titles used as names ("Amadey Malware: How the Loader Works") are cut
+  before the colon, without the "Malware"/"Ransomware"/"Threat Actor" suffix;
+  the original goes to ``title_raw`` (groups and malware only).
 """
 
 from __future__ import annotations
 
+import re
 from typing import Annotated, Any
 
-from pydantic import BaseModel, BeforeValidator, ConfigDict, Field, field_validator
+from pydantic import (
+    BaseModel,
+    BeforeValidator,
+    ConfigDict,
+    Field,
+    field_validator,
+    model_validator,
+)
 
 _LOWERCASE_WORDS = {"and", "or", "of", "the", "to", "in", "for"}
+_PHP_ARRAY = re.compile(r"^a:\d+:\{.*\}$", re.DOTALL)
+# The declared length is ignored on purpose: the data has s:10:"espionage" (9 chars).
+_PHP_STRING = re.compile(r's:\d+:"([^"]*)"')
+_TITLE_SUFFIXES = ("Threat Actor", "Ransomware", "Malware")
 
 
 def blank_to_none(value: Any) -> Any:
@@ -59,9 +76,40 @@ def split_tactics(value: Any) -> list[str]:
     return tactics
 
 
+def parse_motivation(value: Any) -> list[str]:
+    """PHP-serialized array or ``"espionage, financial"`` -> ``["espionage", "financial"]``."""
+    if value is None:
+        return []
+    if isinstance(value, list):
+        parts = value
+    else:
+        text = str(value).strip()
+        parts = _PHP_STRING.findall(text) if _PHP_ARRAY.match(text) else text.split(",")
+    motivations: list[str] = []
+    for part in parts:
+        word = part.strip().lower() if isinstance(part, str) else ""
+        if word and word not in motivations:
+            motivations.append(word)
+    return motivations
+
+
+def split_title(name: str) -> tuple[str, str | None]:
+    """``"Nefilim Ransomware: Profile..."`` -> ``("Nefilim", original)``; no colon -> ``None``."""
+    name = name.strip()
+    if ":" not in name:
+        return name, None
+    head = name.split(":", 1)[0].strip()
+    for suffix in _TITLE_SUFFIXES:
+        if head.casefold().endswith(" " + suffix.casefold()):
+            head = head[: -len(suffix)].strip()
+            break
+    return head, name
+
+
 OptStr = Annotated[str | None, BeforeValidator(blank_to_none)]
 Aliases = Annotated[list[str], BeforeValidator(normalize_aliases)]
 Tactics = Annotated[list[str], BeforeValidator(split_tactics)]
+Motivations = Annotated[list[str], BeforeValidator(parse_motivation)]
 
 
 class _Model(BaseModel):
@@ -104,10 +152,25 @@ class _Item(_Model):
     sources: list[Source] = Field(default_factory=list)
 
 
-class AptGroup(_Item):
+class _TitledItem(_Item):
+    """Groups and malware: a page title used as name is cut, the original kept."""
+
+    title_raw: OptStr = None
+
+    @model_validator(mode="before")
+    @classmethod
+    def _split_title(cls, data: Any) -> Any:
+        if isinstance(data, dict) and isinstance(data.get("name"), str) and "title_raw" not in data:
+            name, raw = split_title(data["name"])
+            if raw is not None:
+                return {**data, "name": name, "title_raw": raw}
+        return data
+
+
+class AptGroup(_TitledItem):
     aliases: Aliases = Field(default_factory=list)
     status: OptStr = None
-    motivation: OptStr = None
+    motivation: Motivations = Field(default_factory=list)
     suspected_origin: OptStr = None
     attributed_by: OptStr = None
     mitre_attack_id: OptStr = None
@@ -117,7 +180,7 @@ class AptGroup(_Item):
     tools: list[ToolRef] = Field(default_factory=list)
 
 
-class RansomwareGroup(_Item):
+class RansomwareGroup(_TitledItem):
     aliases: Aliases = Field(default_factory=list)
     status: OptStr = None
     first_seen: OptStr = None
@@ -127,7 +190,7 @@ class RansomwareGroup(_Item):
     malware: list[LinkRef] = Field(default_factory=list)
 
 
-class Malware(_Item):
+class Malware(_TitledItem):
     aliases: Aliases = Field(default_factory=list)
     type: OptStr = None
     platforms: list[str] = Field(default_factory=list)

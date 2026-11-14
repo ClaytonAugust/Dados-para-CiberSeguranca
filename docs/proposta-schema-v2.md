@@ -1,11 +1,10 @@
 # Proposta de schema v2 (dataset Brandefense)
 Proposta do módulo de Recuperação para o dono do `schema/` aplicar. Números medidos em `data/raw/` (manifest de 12/11/2026). "Extraível" = % dos itens do gabarito cujo nome aparece literalmente no texto que o LLM de extração pode ler.
-
 ## Labels
 | Label | ID | Propriedades (além de `id`, `name`) |
 |---|---|---|
-| Group | `group:<slug>` | `kind` (apt\|ransomware), `aliases`, `aliases_text`, `description`, `status`, `motivation`, `attributed_by`, `first_seen`, `model`, `extortion`, `mitre_id`, `sectors_raw`, `regions_raw`, `url`, `embedding` |
-| Software | `software:<slug>` | `type_raw`, `aliases`, `aliases_text`, `platforms`, `first_seen`, `mitre_id`, `has_page`, `description` |
+| Group | `group:<slug>` | `kind` (apt\|ransomware), `aliases`, `aliases_text`, `description`, `status`, `motivation` (lista), `attributed_by`, `first_seen`, `model`, `extortion`, `mitre_id`, `sectors_raw`, `regions_raw`, `origin_raw`, `title_raw`, `url`, `embedding` |
+| Software | `software:<slug>` | `type_raw`, `aliases`, `aliases_text`, `platforms`, `first_seen`, `mitre_id`, `has_page`, `title_raw`, `description` |
 | Technique | ID ATT&CK (`T1592.002`) | `is_subtechnique`, `has_page`, `description`, `embedding` |
 | Tactic | `tactic:<slug>` | — |
 | Sector | `sector:<slug>`, lista fechada | — |
@@ -25,7 +24,7 @@ Propriedades em toda relação semântica: `source` (gold\|extracted), `doc_id`,
 | BELONGS_TO | Technique → Tactic | `attack_techniques[].tactic`, `attack-techniques.tactic` | Parcial: 40% nas páginas de técnica |
 | TARGETS | Group → Sector | `target_sectors` (mapeado na lista fechada) | Parcial: 15% (APT), 6% (ransomware) |
 | TARGETS | Group → Country | `apt-groups.target_regions` (só os que viram 1 país) | Parcial: 10% |
-| ASSOCIATED_WITH | Group → Country | `apt-groups.suspected_origin` | Sim: 65% |
+| ASSOCIATED_WITH | Group → Country | `apt-groups.suspected_origin`; propriedade `attribution` | Sim: 65% |
 | DESCRIBES | Document → Group, Software, Technique | página de origem do item | Estrutural |
 | PART_OF | Chunk → Document | divisão em chunks | Estrutural |
 | MENTIONED_IN | Group, Software, Technique, Tactic, Sector, Country → Chunk | só no `cti_extracted` | É a própria extração |
@@ -34,6 +33,7 @@ Propriedades em toda relação semântica: `source` (gold\|extracted), `doc_id`,
 - **APT e ransomware no mesmo label `Group` com `kind`:** sim. Têm as mesmas relações (USES, TARGETS) e um caso real nos dois arquivos (Cl0p), então uma consulta só serve aos dois.
 - **Regiões:** viram `Country` quando o texto mapeia para exatamente um país; o resto ("Europe", "NATO members", "Worldwide") fica na propriedade `regions_raw`. Um label `Region` não teria gabarito: as 64 grafias misturam continentes, blocos e listas de países.
 - **Setores sem mapeamento:** `Sector.allowed_values` deixa de ser vazio, e não há nó `sector:other`. Ficam em `sectors_raw` e em `data/processed/unmapped_sectors.csv`. São 317 grafias distintas; a lista fechada proposta tem 20 slugs (government, defense, aerospace, financial, healthcare, energy, telecommunications, technology, education, manufacturing, transportation, retail, media, legal, research, cryptocurrency, ngo, hospitality, construction, agriculture).
+- **Origem (`attribution` em ASSOCIATED_WITH):** `suspected` quando a origem traz "(suspected)"; `attributed` nos demais casos com país. Origem vazia, "Not stated..." ou "Not attributed to a state" não gera aresta; o texto fica em `origin_raw`.
 - **Táticas:** dividir as que vêm juntas ("Persistence, Privilege Escalation") e unificar maiúsculas; 28 grafias viram as táticas do ATT&CK atual, incluindo Stealth e Defense Impairment.
 - **Software e técnica sem página** viram nó com `has_page=false`: 333 nomes de tool e 316 técnicas citadas não têm página. Antes de criar, casar por nome, alias e slug da URL (129 de 480 referências casam).
 
