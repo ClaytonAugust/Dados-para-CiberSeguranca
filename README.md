@@ -101,6 +101,13 @@ pytest -m "not integration"       # testes unitários (sem banco, sem internet)
 pytest -m integration             # FalkorDB real; inclui o teste de conexão da seção 4
 ```
 
+Carga do grafo gold (idempotente, pode rodar de novo):
+
+```powershell
+python -m cti_graphrag.ingest.normalize   # contagens de mapeamento + CSVs de revisão
+python -m cti_graphrag.ingest.load_gold   # grava o cti_gold e imprime contagens
+```
+
 O `.env` precisa ter todas as variáveis do `.env.example`. Se faltar alguma, `cti_graphrag.config.load_settings()` falha listando todas as ausentes de uma vez.
 
 ## Dados
@@ -121,6 +128,10 @@ O `.env` precisa ter todas as variáveis do `.env.example`. Se faltar alguma, `c
 
 - Vale hoje o `schema/schema.yaml` v1 (IDs do MITRE como chave, com Vulnerability, Product e Vendor).
 - Proposta v2 para o dataset Brandefense em `docs/proposta-schema-v2.md`, **ainda não aplicada**: IDs por slug (`group:<slug>`, `software:<slug>`, `tactic:<slug>`), `mitre_id` como propriedade, Group com `kind` (apt/ransomware) e Vulnerability, Product e Vendor com `enabled: false`.
+- O `cti_gold` já é carregado com os IDs da proposta, mas só com labels e relações que existem no v1 (lidas do `schema.yaml` pelo loader). Carga de 14/11/2026, igual em duas execuções seguidas:
+  - Nós: Group 80 (52 APT + 28 ransomware), Software 404 (59 com página + 345 sem), Technique 390 (358 citadas + 32 técnicas-pai derivadas de subtécnicas), Tactic 17, Sector 21, Country 49, Document 181.
+  - Arestas: USES 1.934 (Group→Software 517, Group→Technique 685, Software→Technique 732), TARGETS 530, BELONGS_TO 392, SUBTECHNIQUE_OF 206, ASSOCIATED_WITH 42.
+  - Pulado com aviso: DESCRIBES, que não existe no v1 (181 arestas: 80 Group, 59 Software, 42 Technique).
 - Medido nos JSON: o texto dos resumos quase não cita ferramentas (2% das tools das APT) nem técnicas (1 de 685), então o recall de `USES` do `cti_extracted` contra o gold deve ser baixo.
 
 ## Decisões
@@ -142,12 +153,17 @@ O `.env` precisa ter todas as variáveis do `.env.example`. Se faltar alguma, `c
 | 14/11/2026 | Região em lista ("Germany, Czechia and France") vira um `Country` por item que é exatamente um país; o resto vai para `regions_raw` | Só valores com um único país, como dizia a proposta | Não perder países listados; continentes e blocos seguem sem nó |
 | 14/11/2026 | Na origem, a fonte citada no fim (", per the US Cyber Safety Review Board") é ignorada | Ler o texto todo | Senão o Lapsus$ ganharia origem US, que é quem atribuiu, não a origem |
 | 14/11/2026 | Tool casa com `malware.json` nesta ordem: slug da URL, nome, alias, nome em slug; sem casamento vira `software:<slug do nome>` com `has_page=false` | Criar sempre nó novo | Evita dois nós para o mesmo software (ex.: Uroburos → Snake) |
+| 14/11/2026 | Carga do `cti_gold` antes do v2: IDs da proposta, só labels e relações do v1; o resto é pulado com aviso e contagem; propriedades novas (`kind`, `mitre_id`, `attribution`, `has_page`) já gravadas | Esperar o v2; gravar tudo | A Recuperação pode começar sobre dados reais; o que falta fica listado |
+| 14/11/2026 | Uma aresta por (tipo, origem, destino); `doc_id`/`evidence` da primeira fonte e `doc_ids` com todas | Uma aresta por documento | O grafo responde "quem usa o quê" sem duplicar caminhos; a proveniência fica em `doc_ids` |
+| 14/11/2026 | Técnica-pai ausente é criada a partir da subtécnica (T1592.002 → T1592, nome antes do ":"), com `derived_from_subtechnique=true` | Pular SUBTECHNIQUE_OF sem pai | O nome do ATT&CK já traz o pai ("Gather Victim Host Information: Software") |
+| 14/11/2026 | Document (181) carregado já na parte 3 | Só na parte 4 | É label do v1 e é o alvo do `doc_id` das arestas gold |
 | 14/11/2026 | ASSOCIATED_WITH tem `attribution`: `suspected` se a origem traz "(suspected)", `attributed` nos demais casos com país; sem país não há aresta e o texto vai para `origin_raw` | Aresta para todo valor; nó "Unknown" | Não inventar país e não misturar suspeita com atribuição nas respostas |
 
 ## Como funciona
 
 - **Leitura** (`src/cti_graphrag/ingest/read.py`): `load_dataset()` valida os 4 JSON com Pydantic, recusa campo desconhecido, slug repetido e contagem diferente do `meta`.
 - **Normalização** (`src/cti_graphrag/ingest/normalize.py` e `vocab.py`): `parse_origin`, `map_sector`, `map_region`, `SoftwareIndex.match` e `technique_names` transformam os campos estruturados em IDs da proposta, sem acessar o banco.
+- **Carga gold** (`ingest/build_gold.py`, `ingest/load_gold.py`, `graph/schema.py`): `build_gold()` monta nós e arestas em memória; `plan_load()` descarta o que o `schema.yaml` não tem (ou tem com `enabled: false`); `write_plan()` grava com `UNWIND ... MERGE ... SET +=` em lotes de 500, e os labels no Cypher vêm só do schema.
 - **Configuração** (`src/cti_graphrag/config.py`): `load_settings()` lê o `.env` e devolve um objeto imutável; a chave do LLM não aparece ao imprimir.
 - **Acesso ao grafo** (`src/cti_graphrag/graph/client.py`): `get_graph(name)` reaproveita uma única conexão; `run_query(cypher, params, timeout_ms=..., read_only=...)` só aceita parâmetros em dict, para nenhum valor do usuário ser colado no Cypher.
 
@@ -161,4 +177,9 @@ O `.env` precisa ter todas as variáveis do `.env.example`. Se faltar alguma, `c
 - Casamento de setor por palavra-chave pode perder partes de valores compostos: "Mining" em "Energy and mining" não tem slug e some.
 - Políticos, partidos e eleições são mapeados em `government` (ex.: "Politicians and activists" → government, ngo).
 - 3 tools compostas foram puladas (`skip`), 3 referências: "VBS and PowerShell malware", "Word and PDF lures" e "CVE-2017-11882 and CVE-2020-0674".
+- DESCRIBES (181 arestas) foi pulado porque não existe no schema v1. Depois que o v2 for aplicado, falta: rodar `schema/create_indexes.py`, recarregar o `cti_gold` e fazer a parte 5 (embeddings e índice vetorial).
+- Sem índices (o `create_indexes.py` não foi rodado), o MERGE procura por `id` varrendo os nós; com ~1.100 nós a carga leva poucos segundos, mas não escala.
+- A carga não apaga nós antigos: se o dado de origem mudar e um nó deixar de existir, ele fica no grafo até alguém apagar o `cti_gold`.
+- USES deu 1.934, acima dos ~1.535 esperados. Brutas são 1.984 (449 tools + 31 malwares de ransomware + 87 `used_by` + 685 + 732); a divisão das tools compostas soma 19 e a deduplicação por par tira 69 de Group→Software. Não achei de onde vem o 1.535.
+- Cl0p (ransomware) e TA505 (APT, alias "CL0P") ficam como dois Group separados.
 - "Korea (Clop)" nas regiões fica em `regions_raw`: "Korea" sozinho não diz se é Norte ou Sul.
