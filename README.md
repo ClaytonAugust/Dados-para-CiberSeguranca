@@ -108,6 +108,7 @@ python -m cti_graphrag.ingest.normalize   # contagens de mapeamento + CSVs de re
 python -m cti_graphrag.ingest.chunks      # data/processed/chunks.jsonl (181 chunks)
 python -m cti_graphrag.ingest.load_gold   # grava o cti_gold e imprime contagens
 python -m cti_graphrag.ingest.load_gold --reset   # apaga e recarrega; use ao mudar mapeamento ou schema
+python -m cti_graphrag.ingest.sanity      # confere o banco contra contagens dos JSON (sai com 1 se falhar)
 ```
 
 O `.env` precisa ter todas as variáveis do `.env.example`. Se faltar alguma, `cti_graphrag.config.load_settings()` falha listando todas as ausentes de uma vez.
@@ -167,6 +168,7 @@ O `.env` precisa ter todas as variáveis do `.env.example`. Se faltar alguma, `c
 | 14/11/2026 | MENTIONED_IN no gold liga só o assunto do documento ao seu chunk | Buscar nomes de entidades no texto | Busca por nome é extração; no gold seria um resultado inventado |
 | 14/11/2026 | Técnica com táticas diferentes em fontes diferentes recebe todas como BELONGS_TO | Escolher uma fonte | É o que os campos dizem; a divergência fica visível (ver Limitações) |
 | 14/11/2026 | Técnica-pai derivada recebe BELONGS_TO para a união das táticas das subtécnicas, com `derived=true` | Deixar sem tática | Consultas por tática não perdem 32 técnicas; a marca separa o derivado do que veio da fonte |
+| 14/11/2026 | Sanidade com esperado calculado dos JSON, separando checagens exatas de diferenças explicadas | Números fixos no código; reaproveitar o `build_gold` | Número fixo envelhece quando o dataset muda; reaproveitar a carga seria ela conferindo a si mesma |
 | 14/11/2026 | ASSOCIATED_WITH tem `attribution`: `suspected` se a origem traz "(suspected)", `attributed` nos demais casos com país; sem país não há aresta e o texto vai para `origin_raw` | Aresta para todo valor; nó "Unknown" | Não inventar país e não misturar suspeita com atribuição nas respostas |
 
 ## Como funciona
@@ -175,6 +177,7 @@ O `.env` precisa ter todas as variáveis do `.env.example`. Se faltar alguma, `c
 - **Normalização** (`src/cti_graphrag/ingest/normalize.py` e `vocab.py`): `parse_origin`, `map_sector`, `map_region`, `SoftwareIndex.match` e `technique_names` transformam os campos estruturados em IDs da proposta, sem acessar o banco.
 - **Carga gold** (`ingest/build_gold.py`, `ingest/load_gold.py`, `graph/schema.py`): `build_gold()` monta nós e arestas em memória; `plan_load()` descarta o que o `schema.yaml` não tem (ou tem com `enabled: false`); `write_plan()` grava com `UNWIND ... MERGE ... SET +=` em lotes de 500, e os labels no Cypher vêm só do schema.
 - **Chunks** (`ingest/chunks.py`): `build_chunks()` gera 1 chunk por registro (`<doc_id>#0`); o `build_gold()` cria o nó Chunk, PART_OF → Document e MENTIONED_IN a partir do assunto do documento.
+- **Sanidade** (`ingest/sanity.py`): calcula o esperado direto dos JSON (registros, referências e pares distintos), sem usar o código da carga, e compara com o banco. 16 checagens exatas (em 14/11/2026: todas OK) e 3 explicadas, em que a normalização muda a contagem de propósito: USES Group→Software 567 → 517, ASSOCIATED_WITH 44 → 42, TARGETS 606 → 530.
 - **Configuração** (`src/cti_graphrag/config.py`): `load_settings()` lê o `.env` e devolve um objeto imutável; a chave do LLM não aparece ao imprimir.
 - **Acesso ao grafo** (`src/cti_graphrag/graph/client.py`): `get_graph(name)` reaproveita uma única conexão; `run_query(cypher, params, timeout_ms=..., read_only=...)` só aceita parâmetros em dict, para nenhum valor do usuário ser colado no Cypher.
 
