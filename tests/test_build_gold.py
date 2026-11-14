@@ -130,10 +130,17 @@ def test_build_gold_ids_and_properties(tiny_dataset):
     assert ("SUBTECHNIQUE_OF", "T1592.002", "T1592") in gold.edges
 
 
+def test_derived_parent_gets_sub_tactics(tiny_dataset):
+    gold = build_gold(tiny_dataset)
+    edge = gold.edges[("BELONGS_TO", "T1592", "tactic:reconnaissance")]
+    assert edge.props["derived"] is True
+    assert "derived" not in gold.edges[("BELONGS_TO", "T1592.002", "tactic:reconnaissance")].props
+
+
 def test_plan_skips_what_the_schema_lacks(tiny_dataset, schema):
     plan = plan_load(build_gold(tiny_dataset), schema)
     assert plan.skipped_labels == {"Sector": 1, "Chunk": 4}  # not in this test schema
     assert plan.skipped_edges["DESCRIBES (Document->Group)"] == 2
-    assert plan.skipped_edges["BELONGS_TO (Technique->Tactic)"] == 1
+    assert plan.skipped_edges["BELONGS_TO (Technique->Tactic)"] == 2  # sub + derived parent
     assert "Group" in plan.nodes
     assert ("USES", "Group", "Software") in plan.edges

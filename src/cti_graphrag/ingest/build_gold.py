@@ -294,6 +294,23 @@ def build_gold(dataset: Dataset, composites: dict[str, CompositeTool] | None = N
             "SUBTECHNIQUE_OF", ("Technique", sub_id), ("Technique", parent_id), did, evidence
         )
 
+    # Derived parents have no tactic in any source: they get the union of their
+    # sub-techniques' tactics, marked derived=true (provenance copied from the sub).
+    techniques = gold.nodes.get("Technique", {})
+    for (rel_type, sub_id, tactic), edge in list(gold.edges.items()):
+        if rel_type != "BELONGS_TO" or "." not in sub_id:
+            continue
+        parent_id = sub_id.split(".", 1)[0]
+        if techniques.get(parent_id, {}).get("derived_from_subtechnique"):
+            gold.add_edge(
+                "BELONGS_TO",
+                ("Technique", parent_id),
+                ("Tactic", tactic),
+                edge.props["doc_id"],
+                edge.props["evidence"],
+                derived=True,
+            )
+
     # Chunks: PART_OF to their Document; MENTIONED_IN only from the document's own
     # subject (no name search in the text, which would be extraction, not gold).
     for chunk in build_chunks(dataset):
