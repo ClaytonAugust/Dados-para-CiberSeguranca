@@ -109,6 +109,12 @@ O `.env` precisa ter todas as variáveis do `.env.example`. Se faltar alguma, `c
 - Lidos e validados com Pydantic (`src/cti_graphrag/ingest/`): 52 APT, 28 ransomware, 59 malwares e 42 técnicas, iguais ao `meta.count` de cada arquivo.
 - Limpeza na leitura: aliases em dois formatos (objeto nas APT, string nos demais) viram lista de strings; strings vazias viram nulo (ex.: 8 APT sem `suspected_origin`); táticas combinadas são separadas e a grafia unificada, o que reduz 28 grafias a 17 táticas.
 
+## Schema e IDs
+
+- Vale hoje o `schema/schema.yaml` v1 (IDs do MITRE como chave, com Vulnerability, Product e Vendor).
+- Proposta v2 para o dataset Brandefense em `docs/proposta-schema-v2.md`, **ainda não aplicada**: IDs por slug (`group:<slug>`, `software:<slug>`, `tactic:<slug>`), `mitre_id` como propriedade, Group com `kind` (apt/ransomware) e Vulnerability, Product e Vendor com `enabled: false`.
+- Medido nos JSON: o texto dos resumos quase não cita ferramentas (2% das tools das APT) nem técnicas (1 de 685), então o recall de `USES` do `cti_extracted` contra o gold deve ser baixo.
+
 ## Decisões
 
 | Data | Decisão | Alternativas descartadas | Motivo |
