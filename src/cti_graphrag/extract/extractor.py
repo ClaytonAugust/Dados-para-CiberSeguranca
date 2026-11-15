@@ -22,7 +22,7 @@ from typing import Literal
 from pydantic import BaseModel, Field, ValidationError, model_validator
 
 TEXTS_FILE = Path("eval/extraction/texts.jsonl")
-OUT_FILE = Path("eval/extraction/triples.jsonl")
+OUT_FILE = Path("eval/extraction/triples_raw.jsonl")  # resolve.py gera triples.jsonl
 CACHE_DIR = Path("eval/extraction/cache")
 WAITS = [5, 15, 45]  # segundos antes da 2ª, 3ª tentativa (a 3ª espera não é usada)
 PAUSE = 2  # pausa entre chamadas que não vieram do cache
@@ -127,39 +127,74 @@ def extract(text, model, llm=call_llm, cache_dir=CACHE_DIR, waits=WAITS, sleep=t
     raise RuntimeError(f"3 tentativas falharam: {last_error}")
 
 
-def main():
-    from dotenv import load_dotenv
+class CacheMiss(Exception):
+    pass
 
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--limit", type=int, default=None)
-    args = parser.parse_args()
 
-    load_dotenv(".env")
-    model = os.getenv("LLM_MODEL")
-    if not model or not os.getenv("GEMINI_API_KEY"):
-        raise SystemExit("LLM_MODEL e GEMINI_API_KEY precisam estar no .env")
+def extract_cache_only(text, model, cache_dir=CACHE_DIR):
+    """Como extract, mas só lê o cache; sem cache levanta CacheMiss."""
+    def no_llm(prompt, model):
+        raise CacheMiss()
+    path = Path(cache_dir) / f"{cache_key(model, PROMPT + text)}.json"
+    if not path.exists():
+        raise CacheMiss()
+    return extract(text, model, llm=no_llm, cache_dir=cache_dir)
 
-    rows = [json.loads(line) for line in TEXTS_FILE.read_text(encoding="utf-8").splitlines()]
-    rows = rows[: args.limit]
 
-    OUT_FILE.parent.mkdir(parents=True, exist_ok=True)
-    with OUT_FILE.open("w", encoding="utf-8") as out:
-        for row in rows:
-            print(row["doc_id"])
-            try:
-                triples, dropped, cached = extract(row["text"], model)
-                status = "ok"
-            except RuntimeError as e:
-                triples, dropped, cached, status = [], 0, False, f"erro: {e}"[:200]
+def run(rows, model, out_file=OUT_FILE, extract_fn=extract, pause=PAUSE, sleep=time.sleep):
+    """Processa os textos gravando cada resultado assim que chega (append + flush).
+
+    O arquivo é recriado no início; textos já no cache saem sem chamar o LLM.
+    Devolve {"ok": n, "erro": n, "sem_cache": n}.
+    """
+    out_file = Path(out_file)
+    out_file.parent.mkdir(parents=True, exist_ok=True)
+    out_file.write_text("", encoding="utf-8")
+    counts = {"ok": 0, "erro": 0, "sem_cache": 0}
+    for i, row in enumerate(rows, start=1):
+        cached = True
+        try:
+            triples, dropped, cached = extract_fn(row["text"], model)
+            status = "ok"
+        except CacheMiss:
+            triples, dropped, status = [], 0, "sem_cache"
+        except RuntimeError as e:
+            triples, dropped, cached, status = [], 0, False, "erro"
+            print(f"   {e}"[:200], flush=True)
+        counts[status] += 1
+        with out_file.open("a", encoding="utf-8") as out:
             for t in triples:
                 out.write(json.dumps({
                     "doc_id": row["doc_id"],
                     **t.model_dump(),
                     "evidence_in_text": t.evidence in row["text"],
                 }, ensure_ascii=False) + "\n")
-            print(f"  {status} | triplas={len(triples)} descartadas={dropped} cache={cached}")
-            if not cached:
-                time.sleep(PAUSE)
+            out.flush()
+        print(f"{i}/{len(rows)} {row['doc_id']} {status} "
+              f"(triplas={len(triples)} descartadas={dropped} cache={cached})", flush=True)
+        if not cached:
+            sleep(pause)
+    return counts
+
+
+def main():
+    from dotenv import load_dotenv
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--limit", type=int, default=None)
+    parser.add_argument("--cache-only", action="store_true",
+                        help="não chama o LLM; usa só o que já está no cache")
+    args = parser.parse_args()
+
+    load_dotenv(".env")
+    model = os.getenv("LLM_MODEL")
+    if not model or (not args.cache_only and not os.getenv("GEMINI_API_KEY")):
+        raise SystemExit("LLM_MODEL e GEMINI_API_KEY precisam estar no .env")
+
+    rows = [json.loads(line) for line in TEXTS_FILE.read_text(encoding="utf-8").splitlines()]
+    rows = rows[: args.limit]
+    counts = run(rows, model, extract_fn=extract_cache_only if args.cache_only else extract)
+    print(f"resumo: {counts}", flush=True)
 
 
 if __name__ == "__main__":

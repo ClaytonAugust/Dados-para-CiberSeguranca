@@ -2,7 +2,13 @@ import json
 
 import pytest
 
-from cti_graphrag.extract.extractor import extract, parse_triples
+from cti_graphrag.extract.extractor import (
+    CacheMiss,
+    extract,
+    extract_cache_only,
+    parse_triples,
+    run,
+)
 
 
 def resposta(*triples):
@@ -77,3 +83,32 @@ def test_tres_falhas_levantam_erro_e_nao_gravam_cache(tmp_path):
     with pytest.raises(RuntimeError):
         extract("t", "m", llm=llm, cache_dir=tmp_path, sleep=lambda s: None)
     assert list(tmp_path.iterdir()) == []
+
+
+def test_run_grava_cada_texto_ao_chegar_e_conta_erros(tmp_path, capsys):
+    out = tmp_path / "raw.jsonl"
+    linhas_vistas = []
+
+    def fake_extract(text, model):
+        linhas_vistas.append(len(out.read_text(encoding="utf-8").splitlines()))
+        if text == "falha":
+            raise RuntimeError("3 tentativas falharam")
+        if text == "sem":
+            raise CacheMiss()
+        return parse_triples(resposta(OK))[0], 0, True
+
+    rows = [{"doc_id": "a", "text": "uses PoisonIvy"}, {"doc_id": "b", "text": "falha"},
+            {"doc_id": "c", "text": "sem"}, {"doc_id": "d", "text": "x"}]
+    counts = run(rows, "m", out_file=out, extract_fn=fake_extract, sleep=lambda s: None)
+
+    assert counts == {"ok": 2, "erro": 1, "sem_cache": 1}
+    assert linhas_vistas == [0, 1, 1, 1]  # a linha de "a" já estava no disco antes de "b"
+    saida = capsys.readouterr().out
+    assert "1/4 a ok" in saida and "2/4 b erro" in saida and "3/4 c sem_cache" in saida
+
+
+def test_cache_only_nao_chama_llm(tmp_path):
+    with pytest.raises(CacheMiss):
+        extract_cache_only("novo", "m", cache_dir=tmp_path)
+    extract("novo", "m", llm=lambda p, m: resposta(OK), cache_dir=tmp_path)
+    assert extract_cache_only("novo", "m", cache_dir=tmp_path)[2] is True
