@@ -1,0 +1,23 @@
+doc_id,role,label,name,new_id
+apt:sandworm,tail,Sector,power grid,new:Sector:power_grid
+apt:sandworm,tail,Software,wipers,new:Software:wipers
+apt:apt38,tail,Sector,banks,new:Sector:banks
+apt:apt38,tail,Sector,cryptocurrency exchanges,new:Sector:cryptocurrency_exchanges
+apt:apt32,tail,Sector,governments,new:Sector:governments
+apt:apt32,tail,Sector,dissidents,new:Sector:dissidents
+apt:apt32,tail,Sector,journalists,new:Sector:journalists
+apt:apt32,tail,Sector,companies,new:Sector:companies
+apt:apt28,tail,Sector,governments,new:Sector:governments
+apt:apt28,tail,Sector,militaries,new:Sector:militaries
+apt:apt28,tail,Sector,political parties,new:Sector:political_parties
+apt:apt28,tail,Sector,logistics firms,new:Sector:logistics_firms
+apt:apt27,tail,Sector,governments,new:Sector:governments
+apt:apt27,tail,Sector,companies,new:Sector:companies
+apt:muddywater,tail,Sector,local government,new:Sector:local_government
+apt:muddywater,tail,Sector,oil and gas,new:Sector:oil_and_gas
+apt:hafnium,tail,Country,US,new:Country:us
+apt:hafnium,tail,Sector,universities,new:Sector:universities
+apt:hafnium,tail,Sector,law firms,new:Sector:law_firms
+apt:hafnium,tail,Sector,defense contractors,new:Sector:defense_contractors
+apt:hafnium,tail,Sector,research bodies,new:Sector:research_bodies
+apt:apt1,tail,Country,US,new:Country:us
