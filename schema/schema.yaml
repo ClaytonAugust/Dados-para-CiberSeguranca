@@ -50,6 +50,19 @@ labels:
       aliases: {type: array, items: string}
       aliases_text: {type: string}
       description: {type: string}
+      status: {type: string}
+      motivation: {type: string}
+      suspected_origin: {type: string}
+      attributed_by: {type: string}
+      target_regions: {type: array, items: string}
+      target_sectors_raw: {type: array, items: string}
+      first_seen: {type: string}
+      last_updated: {type: string}
+      model: {type: string}
+      extortion: {type: string}
+      source_url: {type: string}
+      aliases_sources_json: {type: string}
+      is_provisional: {type: boolean}
       embedding: {type: vector, dimensions: 384}
     indexes:
       unique: [id]
@@ -65,9 +78,15 @@ labels:
       type:
         type: string
         allowed_values: [malware, tool]
+      source_type: {type: string}
       aliases: {type: array, items: string}
       aliases_text: {type: string}
       description: {type: string}
+      platforms: {type: array, items: string}
+      first_seen: {type: string}
+      last_updated: {type: string}
+      source_url: {type: string}
+      is_provisional: {type: boolean}
     indexes:
       unique: [id]
       range: [id]
@@ -80,6 +99,9 @@ labels:
       name: {type: string, required: true}
       is_subtechnique: {type: boolean}
       description: {type: string}
+      last_updated: {type: string}
+      source_url: {type: string}
+      is_provisional: {type: boolean}
       embedding: {type: vector, dimensions: 384}
     indexes:
       unique: [id]
@@ -93,6 +115,7 @@ labels:
       id: {type: string, required: true}
       name: {type: string, required: true}
       shortname: {type: string}
+      is_provisional: {type: boolean}
     indexes:
       unique: [id]
       range: [id]
