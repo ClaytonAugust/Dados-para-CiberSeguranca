@@ -39,6 +39,7 @@ SYSTEMS = ["llm_puro", "rag_vetorial", "graphrag"]
 RETRYABLE = {"Timeout", "ServiceUnavailableError"}
 WAITS = [10, 30]  # espera antes da 2ª e da 3ª tentativa
 PAUSE = 3
+ERROR_CHARS = 1000  # suficiente para ler qual cota/limite estourou
 
 ABSTAIN_MARKERS = [
     "não encontrei", "não foi possível validar", "não há informaç", "não há registro",
@@ -117,7 +118,7 @@ def run_one(system, question, call, model, commit, cache_dir=CACHE_DIR, waits=WA
     except Exception as e:  # noqa: BLE001 — falha definitiva vira linha "erro"
         return {"answer": "", "n_paths": None, "confidence": None,
                 "latency_ms": int((time.perf_counter() - start) * 1000),
-                "status": "erro", "error": f"{type(e).__name__}: {e}"[:300],
+                "status": "erro", "error": f"{type(e).__name__}: {e}"[:ERROR_CHARS],
                 "cached": False, "attempts": None}
     record = {**result, "latency_ms": int((time.perf_counter() - start) * 1000),
               "status": "ok", "error": "", "attempts": attempts}
@@ -163,6 +164,8 @@ def evaluate(rows, calls, model, commit, cache_dir=CACHE_DIR, pause=PAUSE, sleep
             })
             print(f"{i}/{len(rows)} {row['id']} {system} {r['status']} "
                   f"cache={r['cached']} {r['latency_ms']} ms", flush=True)
+            if r["status"] == "erro":
+                print(f"   {r['error']}", flush=True)
             if not r["cached"]:
                 sleep(pause)
     return out

@@ -160,7 +160,7 @@ def run(rows, model, out_file=OUT_FILE, extract_fn=extract, pause=PAUSE, sleep=t
             triples, dropped, status = [], 0, "sem_cache"
         except RuntimeError as e:
             triples, dropped, cached, status = [], 0, False, "erro"
-            print(f"   {e}"[:200], flush=True)
+            print(f"   {e}"[:1000], flush=True)  # 1000: dá para ler qual limite estourou
         counts[status] += 1
         with out_file.open("a", encoding="utf-8") as out:
             for t in triples:
