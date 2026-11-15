@@ -68,17 +68,22 @@ Fonte: `eval/results/2026-11-15/retrieval.csv`, linha q01.
 ## 4. Extração de triplas
 
 Fontes: `eval/results/2026-11-15/extraction.csv` e `extraction_meta.json`.
-Recorte: dos 30 textos sorteados, **17 foram extraídos** (15 APT, 2 ransomware, 0 malware). Os outros 13 falharam por erro 429 do Gemini.
+Recorte: **N = 17 textos** extraídos dos 30 sorteados (15 APT, 2 ransomware, 0 malware). Os outros 13 falharam por erro 429 do Gemini, e a amostra ficou fechada em 17.
 São 17 grupos do `cti_gold` e 3 relações. Foram extraídas 44 triplas, todas com a evidência literal no texto (44/44).
-O head foi resolvido em 44/44; os tails, em Country 17/19, Sector 3/22 e Software 2/3.
+O head foi resolvido em 44/44; os tails, em Country 17/19, Sector 8/22 e Software 2/3.
+Os setores passaram a casar também por palavra-chave com os nomes dos nós Sector. Depois disso, o `cti_extracted` foi apagado e recarregado.
 
 | relação | extraídas | gold | acertos | precisão | recall | F1 |
 |---|---|---|---|---|---|---|
 | ASSOCIATED_WITH | 13 | 13 | 13 | 1,00 | 1,00 | 1,00 |
 | TARGETS → Country | 5 | 47 | 3 | 0,60 | 0,06 | 0,12 |
-| TARGETS → Sector | 22 | 23 | 3 | 0,14 | 0,13 | 0,13 |
+| TARGETS → Sector | 22 | 23 | 4 | 0,18 | 0,17 | 0,18 |
 | USES (→ Software) | 3 | 147 | 2 | 0,67 | 0,01 | 0,03 |
-| total (micro) | 43 | 230 | 21 | 0,49 | 0,09 | 0,15 |
+| total (micro) | 43 | 230 | 22 | 0,51 | 0,10 | 0,16 |
+
+**Primeira rodada** (resolução de setores só por nome exato, Sector 3/22; `extraction.csv` do commit `c11868b`):
+mudou só a linha TARGETS → Sector, com 3 acertos (precisão 0,14, recall 0,13, F1 0,13). O total era de 21 acertos (precisão 0,49, recall 0,09, F1 0,15).
+Dos 5 setores que passaram a casar por palavra-chave, só 1 é aresta que existe no gold. Os outros 4 viraram ids válidos, mas o grupo não tem aquele alvo no `cti_gold`.
 
 ## 5. Respostas com LLM
 
@@ -96,7 +101,8 @@ venv\Scripts\python.exe eval/run_eval.py --limit 5   # depois, sem --limit, para
 - **Amostra pequena na extração:** 17 de 30 textos e nenhum de malware, então os números da seção 4 valem só para esses 17 grupos.
 - **Só 3 relações:** ASSOCIATED_WITH, TARGETS e USES (→ Software). USES → Technique e BELONGS_TO não foram avaliadas.
 - **Recall de USES baixo:** os resumos quase não citam ferramentas. O gold vem das listas `tools`, que ficaram fora do texto de entrada de propósito.
-- **Setores em texto livre:** "governments", "banks" e "oil and gas" não casam por nome exato com os 17 nós Sector, o que reduz a precisão de TARGETS → Sector.
+- **Setores em texto livre:** mesmo casando por palavra-chave, 14 dos 22 continuam sem par ("banks", "oil and gas", "universities"...). Ligar esses nomes exigiria sinônimos.
+- **Cota gratuita de 20 chamadas por dia no modelo usado** (`gemini-3.8-flash`, erro 429 `generate_content_free_tier_requests`, limite 20 por dia). Ela limitou a extração a 17 textos e impediu a avaliação das respostas.
 - **Lista longa:** o critério de mais de 20 ids (igual ao `max_entities` do retriever) é uma escolha nossa e tira 6 perguntas da média principal.
 - **`confidence` é similaridade média** da busca vetorial, não uma probabilidade de acerto.
 - **Validação de referências só de formato:** `answer.py` confere que cada `[P#]` existe, mas não que o trecho citado sustenta a frase.
@@ -114,4 +120,5 @@ venv\Scripts\python.exe eval/run_eval.py --limit 5   # depois, sem --limit, para
 - **T3** — Extração dos 30: 17 ok e 13 com 429; `resolve.py` gera `unresolved.csv`.
 - **T4** — `load_extracted.py`: 45 nós e 43 arestas no `cti_extracted`; a 2ª execução não muda nada; `cti_gold` inalterado (Group 79).
 - **T5** — `compare_graphs.py`: seção 4.
-- **Complemento, parte 2** — Setores casados por palavra-chave no `resolve.py`, usando os nomes dos nós Sector, com o texto original em `tail_raw`. Setores resolvidos passaram de 3/22 para 8/22 (5 por palavra-chave). Fonte: `eval/extraction/triples.jsonl`. O `cti_extracted` e a seção 4 ainda refletem a resolução antiga.
+- **Complemento, parte 2** — Setores casados por palavra-chave no `resolve.py`, usando os nomes dos nós Sector, com o texto original em `tail_raw`. Setores resolvidos passaram de 3/22 para 8/22 (5 por palavra-chave). Fonte: `eval/extraction/triples.jsonl`. 
+- **Complemento, parte 3** — Apaguei só o `cti_extracted` e recarreguei 2 vezes, com as mesmas contagens nas duas: Group 14, Country 9, Sector 17, Software 3; ASSOCIATED_WITH 13, TARGETS 27, USES 3. `cti_gold` continua com Group 79. Rodei `compare_graphs.py` de novo; o resultado está na seção 4.
