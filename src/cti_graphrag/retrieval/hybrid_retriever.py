@@ -28,6 +28,7 @@ class HybridRetriever:
     def __init__(self, graph, model=None):
 
         self.graph = graph
+        self.last_queries = []
 
         # Permite reutilizar um modelo já carregado.
         self.model = model or SentenceTransformer(
@@ -71,6 +72,9 @@ class HybridRetriever:
         ORDER BY similarity DESC
         """
 
+        # Registrar somente depois de declarar a consulta.
+        self.last_queries.append(query.strip())
+
         rows = self.graph.ro_query(
             query,
             params={
@@ -89,6 +93,7 @@ class HybridRetriever:
             }
             for row in rows
         ]
+
 
     # --------------------------------------------------
     # 2. IDENTIFICAR ENTIDADES NOS CHUNKS
@@ -121,6 +126,9 @@ class HybridRetriever:
             e.type,
             c.id
         """
+
+        # Registrar depois da declaração.
+        self.last_queries.append(query.strip())
 
         rows = self.graph.ro_query(
             query,
@@ -165,6 +173,7 @@ class HybridRetriever:
         )
 
         return ordered[:max_entities]
+
 
     # --------------------------------------------------
     # 3. EXPANDIR RELACIONAMENTOS
@@ -242,34 +251,53 @@ class HybridRetriever:
     # 4. EXECUTAR RECUPERAÇÃO HÍBRIDA
     # --------------------------------------------------
 
+    
     def retrieve(self, question, top_k=5, max_entities=20):
 
-        # Primeira etapa: recuperação semântica.
+        # Limpa o registro de consultas da execução anterior.
+        self.last_queries = []
+        self.graph_retriever.last_queries = []
+
+        # 1. Recuperação semântica.
         semantic_results = self.semantic_search(
             question,
             top_k
         )
 
         if not semantic_results:
+
             return {
                 "semantic_results": [],
                 "entities": [],
-                "relationships": []
+                "relationships": [],
+                "cypher": "\n\n".join(self.last_queries)
             }
 
-        # Segunda etapa: identificar entidades.
+        # 2. Identificação das entidades.
         entities = self.find_entities(
             semantic_results,
             max_entities
         )
 
-        # Terceira etapa: expandir o grafo.
-        relationships = self.expand_graph(
-            entities
-        )
+        # 3. Expansão dos relacionamentos.
+        relationships = self.expand_graph(entities)
+
+        # 4. Histórico das consultas utilizadas.
+        queries = []
+
+        for query in self.last_queries:
+            queries.append(
+                "// Recuperação híbrida\n" + query
+            )
+
+        for query in self.graph_retriever.last_queries:
+            queries.append(
+                "// Expansão do grafo\n" + query
+            )
 
         return {
             "semantic_results": semantic_results,
             "entities": entities,
-            "relationships": relationships
+            "relationships": relationships,
+            "cypher": "\n\n".join(queries)
         }

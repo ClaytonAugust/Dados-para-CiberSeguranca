@@ -12,6 +12,7 @@ class GraphRetriever:
 
     def __init__(self, graph):
         self.graph = graph
+        self.last_queries = []
 
     # --------------------------------------------------
     # 1. BUSCAR ENTIDADES
@@ -116,6 +117,7 @@ class GraphRetriever:
     # 3. RECUPERAR RELACIONAMENTOS
     # --------------------------------------------------
 
+    
     def get_relationships(self, entity_id):
 
         query = """
@@ -126,6 +128,10 @@ class GraphRetriever:
             AND type(r) IN [
                 'USES',
                 'BELONGS_TO',
+                'SUBTECHNIQUE_OF',
+                'AFFECTS',
+                'MADE_BY',
+                'EXPLOITS',
                 'TARGETS',
                 'ASSOCIATED_WITH'
             ]
@@ -147,10 +153,14 @@ class GraphRetriever:
             r.chunk_id,
             c.text,
             d.title,
-            d.url
+            d.url,
+            r.source,
+            r.confidence
 
         LIMIT 200
         """
+
+        self.last_queries.append(query.strip())
 
         rows = self.graph.ro_query(
             query,
@@ -173,7 +183,9 @@ class GraphRetriever:
                 chunk_id,
                 context,
                 document,
-                source_url
+                source_url,
+                provenance_source,
+                confidence
             ) = row
 
             key = (
@@ -203,7 +215,9 @@ class GraphRetriever:
                 "text": context,
                 "document": document,
                 "source_url": source_url,
-                "relationship_evidence": relationship_evidence
+                "relationship_evidence": relationship_evidence,
+                "source": provenance_source,
+                "confidence": confidence
             }
 
             existing_ids = {
@@ -215,6 +229,7 @@ class GraphRetriever:
                 grouped[key]["evidences"].append(evidence)
 
         return list(grouped.values())
+
 
     # --------------------------------------------------
     # 4. RECUPERAR EVIDÊNCIAS DIRETAS

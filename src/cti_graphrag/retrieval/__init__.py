@@ -1,7 +1,6 @@
 from .graph_retriever import GraphRetriever
 from .hybrid_retriever import HybridRetriever
 
-__all__ = [
-    "GraphRetriever",
-    "HybridRetriever",
-]
+def __init__(self, graph):
+    self.graph = graph
+    self.last_queries = []
