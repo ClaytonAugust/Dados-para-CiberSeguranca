@@ -114,3 +114,4 @@ venv\Scripts\python.exe eval/run_eval.py --limit 5   # depois, sem --limit, para
 - **T3** — Extração dos 30: 17 ok e 13 com 429; `resolve.py` gera `unresolved.csv`.
 - **T4** — `load_extracted.py`: 45 nós e 43 arestas no `cti_extracted`; a 2ª execução não muda nada; `cti_gold` inalterado (Group 79).
 - **T5** — `compare_graphs.py`: seção 4.
+- **Complemento, parte 2** — Setores casados por palavra-chave no `resolve.py`, usando os nomes dos nós Sector, com o texto original em `tail_raw`. Setores resolvidos passaram de 3/22 para 8/22 (5 por palavra-chave). Fonte: `eval/extraction/triples.jsonl`. O `cti_extracted` e a seção 4 ainda refletem a resolução antiga.

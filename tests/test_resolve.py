@@ -1,4 +1,11 @@
-from cti_graphrag.extract.resolve import build_index, norm, resolve_triples, slug
+from cti_graphrag.extract.resolve import (
+    build_index,
+    match_sector_keyword,
+    norm,
+    resolve_triples,
+    slug,
+    words,
+)
 
 
 class FakeResult:
@@ -17,7 +24,9 @@ class FakeGraph:
         if ":Country" in cypher:
             return FakeResult([["country:RU", "Russia"], ["country:KZ", "Kazakhstan (suspected)"]])
         if ":Sector" in cypher:
-            return FakeResult([["sector:energy", "Energy"]])
+            return FakeResult([["sector:energy", "Energy"], ["sector:government", "Government"],
+                               ["sector:technology", "Technology"],
+                               ["sector:it", "Information Technology"]])
         raise AssertionError(cypher)
 
 
@@ -86,3 +95,47 @@ def test_grupo_resolvido_tem_head_type_group():
     out, _ = resolve_triples([tripla("apt:sandworm", "Sandworm", "NotPetya", "Software")],
                              TEXTS, index)
     assert out[0]["head_type"] == "Group"
+
+
+def test_words_singular_simples():
+    assert words("Local Governments and Utilities") == {"local", "government", "and", "utility"}
+
+
+def test_setor_por_palavra_chave_casa_e_guarda_tail_raw():
+    index = build_index(FakeGraph())
+    out, unresolved = resolve_triples([tripla("apt:sandworm", "Sandworm", "local governments",
+                                              "Sector", "TARGETS")], TEXTS, index)
+    t = out[0]
+    assert t["tail_id"] == "sector:government" and t["tail_resolved"]
+    assert t["tail"] == "Government" and t["tail_raw"] == "local governments"
+    assert t["tail_match"] == "palavra_chave" and unresolved == []
+
+
+def test_setor_sem_palavra_chave_continua_nao_resolvido():
+    index = build_index(FakeGraph())
+    out, unresolved = resolve_triples([tripla("apt:sandworm", "Sandworm", "banks", "Sector",
+                                              "TARGETS")], TEXTS, index)
+    assert out[0]["tail_id"] == "new:Sector:banks"
+    assert not out[0]["tail_resolved"] and out[0]["tail_raw"] == "banks"
+    assert unresolved[0]["name"] == "banks"
+
+
+def test_setor_ambiguo_continua_nao_resolvido():
+    index = build_index(FakeGraph())
+    # "information technology firms" contém as palavras de Technology e de Information Technology
+    assert match_sector_keyword(index, "information technology firms") is None
+    assert match_sector_keyword(index, "technology firms") == ("sector:technology", "Technology")
+
+
+def test_nome_exato_tem_prioridade_e_marca_tail_match_nome():
+    index = build_index(FakeGraph())
+    out, _ = resolve_triples([tripla("apt:sandworm", "Sandworm", "Energy", "Sector", "TARGETS")],
+                             TEXTS, index)
+    assert out[0]["tail_match"] == "nome" and out[0]["tail_raw"] == "Energy"
+
+
+def test_palavra_chave_so_vale_para_sector():
+    index = build_index(FakeGraph())
+    out, _ = resolve_triples([tripla("apt:sandworm", "Sandworm", "government tool", "Software")],
+                             TEXTS, index)
+    assert not out[0]["tail_resolved"]

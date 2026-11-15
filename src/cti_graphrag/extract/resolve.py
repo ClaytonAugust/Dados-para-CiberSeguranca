@@ -2,7 +2,10 @@
 
 - Group e Software: por nome ou alias, sem diferenciar maiúsculas.
 - Country: pelo nome do nó Country (id country:<ISO>).
-- Sector: pelo nome do nó Sector.
+- Sector: pelo nome do nó Sector; se não casar, por palavra-chave: o nó
+  Sector cujas palavras do nome aparecem todas no texto (singular simples).
+  Nenhum ou mais de um candidato -> não resolvido. O texto original fica
+  em tail_raw.
 O que não casar recebe new:<Label>:<slug> e vai para unresolved.csv.
 
 Head: o prompt pede que o head seja o grupo descrito no texto. Se o head
@@ -52,7 +55,34 @@ def build_index(graph):
     for label in ["Country", "Sector"]:
         rows = graph.ro_query(f"MATCH (n:{label}) RETURN n.id, n.name").result_set
         index[label] = {norm(name): node_id for node_id, name in rows}
+        if label == "Sector":
+            index["Sector_names"] = {node_id: name for node_id, name in rows}
     return index
+
+
+def words(text):
+    """Palavras com 3+ letras, no singular simples (governments -> government,
+    utilities -> utility)."""
+    out = set()
+    for w in re.findall(r"[a-z]+", norm(text)):
+        if len(w) < 3:
+            continue
+        if w.endswith("ies"):
+            w = w[:-3] + "y"
+        elif w.endswith("s") and not w.endswith("ss"):
+            w = w[:-1]
+        out.add(w)
+    return out
+
+
+def match_sector_keyword(index, name):
+    """Casa um setor em texto livre com UM nó Sector cujas palavras do nome
+    aparecem todas no texto. Devolve (id, nome) ou None se casar com nenhum
+    ou com mais de um (ambíguo)."""
+    text_words = words(name)
+    hits = [(node_id, sector) for node_id, sector in index.get("Sector_names", {}).items()
+            if words(sector) and words(sector) <= text_words]
+    return hits[0] if len(hits) == 1 else None
 
 
 def resolve_name(index, label, name):
@@ -82,18 +112,26 @@ def resolve_triples(triples, texts, index):
             if sw_ok:
                 head_id, head_ok, head_type = sw_id, True, "Software"
 
-        tail_id, tail_ok = resolve_name(index, t["tail_type"], t["tail"])
+        tail_raw, tail_name = t["tail"], t["tail"]
+        tail_id, tail_ok = resolve_name(index, t["tail_type"], tail_raw)
+        tail_match = "nome" if tail_ok else ""
+        if not tail_ok and t["tail_type"] == "Sector":
+            hit = match_sector_keyword(index, tail_raw)
+            if hit:
+                tail_id, tail_name = hit
+                tail_ok, tail_match = True, "palavra_chave"
 
         for role, label, name, node_id, ok in [
             ("head", head_type, t["head"], head_id, head_ok),
-            ("tail", t["tail_type"], t["tail"], tail_id, tail_ok),
+            ("tail", t["tail_type"], tail_raw, tail_id, tail_ok),
         ]:
             if not ok:
                 unresolved.append({"doc_id": t["doc_id"], "role": role, "label": label,
                                    "name": name, "new_id": node_id})
 
         out.append({**t, "head_id": head_id, "head_type": head_type, "head_resolved": head_ok,
-                    "head_source": head_source, "tail_id": tail_id, "tail_resolved": tail_ok})
+                    "head_source": head_source, "tail": tail_name, "tail_raw": tail_raw,
+                    "tail_id": tail_id, "tail_resolved": tail_ok, "tail_match": tail_match})
     return out, unresolved
 
 
