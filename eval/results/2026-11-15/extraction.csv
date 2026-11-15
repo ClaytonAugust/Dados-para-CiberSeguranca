@@ -1,0 +1,5 @@
+relation,n_extracted,n_gold,hits,precision,recall,f1
+ASSOCIATED_WITH,13,13,13,1.0,1.0,1.0
+TARGETS,27,70,6,0.2222,0.0857,0.1237
+USES,3,147,2,0.6667,0.0136,0.0267
+total,43,230,21,0.4884,0.0913,0.1538

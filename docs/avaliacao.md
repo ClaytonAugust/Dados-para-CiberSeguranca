@@ -13,3 +13,13 @@
 - **T2 (15/11/2026)** — `src/cti_graphrag/extract/extractor.py` (Pydantic, cache em `eval/extraction/cache/`, 3 tentativas com espera de 5 s e 15 s). Rodado em 3 textos: 8 triplas, 0 descartadas, 8/8 evidências literais. Na 1ª rodada, apt-c-60 falhou 3× (timeout/503) e saiu na 2ª. No Sandworm o head veio como "this group" (o texto não cita o nome) e apareceram tails genéricos ("wipers", "power grid").
 - **T3 (15/11/2026)** — A rodada nos 30 textos terminou em menos de 20 min: 17 ok, 13 com erro 429 (cota do Gemini esgotada), entre eles os 5 de malware. 44 triplas (ASSOCIATED_WITH 14, TARGETS 27, USES 3), todas de textos APT; ransomhub, killsec e teampcp deram 0 triplas. `resolve.py`: 66/88 entidades resolvidas (75%) — head 44/44 (11 via entity_name), Country 17/19, Software 2/3, Sector só 3/22 (nomes como "governments", "banks", "oil and gas" não casam por nome exato). 44/44 evidências literais.
 - **T4 (15/11/2026)** — `load_extracted.py` carregou as 44 triplas no `cti_extracted`, que estava vazio. Resultado: 45 nós (Group 14, Country 9, Sector 19, Software 3) e 43 arestas (ASSOCIATED_WITH 13, TARGETS 27, USES 3); uma tripla repetida no mesmo doc foi unida pelo MERGE. A 2ª execução não mudou nenhuma contagem. As 43 arestas têm source, evidence, confidence e doc_id. `cti_gold` inalterado (Group 79).
+- **T5 (15/11/2026)** — `eval/compare_graphs.py`. Recorte: 17 textos extraídos (17 grupos do `cti_gold`) e as 3 relações, comparando arestas distintas (grupo, relação, tail) entre `cti_extracted` e `cti_gold`, com USES restrito a Software. Resultado em `eval/results/2026-11-15/extraction.csv`:
+
+  | relação | extraídas | gold | acertos | precisão | recall | F1 |
+  |---|---|---|---|---|---|---|
+  | ASSOCIATED_WITH | 13 | 13 | 13 | 1,00 | 1,00 | 1,00 |
+  | TARGETS | 27 | 70 | 6 | 0,22 | 0,09 | 0,12 |
+  | USES | 3 | 147 | 2 | 0,67 | 0,01 | 0,03 |
+  | total (micro) | 43 | 230 | 21 | 0,49 | 0,09 | 0,15 |
+
+  Causas: o texto de entrada tem só o summary, e o gold de USES vem das listas `tools`, que ficaram fora do texto de propósito. Em TARGETS, 19 dos 22 setores extraídos não casaram com os nós Sector, o que derruba a precisão.
