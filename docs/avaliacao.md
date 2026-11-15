@@ -19,8 +19,12 @@
   | relação | extraídas | gold | acertos | precisão | recall | F1 |
   |---|---|---|---|---|---|---|
   | ASSOCIATED_WITH | 13 | 13 | 13 | 1,00 | 1,00 | 1,00 |
-  | TARGETS | 27 | 70 | 6 | 0,22 | 0,09 | 0,12 |
+  | TARGETS → Country | 5 | 47 | 3 | 0,60 | 0,06 | 0,12 |
+  | TARGETS → Sector | 22 | 23 | 3 | 0,14 | 0,13 | 0,13 |
   | USES | 3 | 147 | 2 | 0,67 | 0,01 | 0,03 |
   | total (micro) | 43 | 230 | 21 | 0,49 | 0,09 | 0,15 |
 
-  Causas: o texto de entrada tem só o summary, e o gold de USES vem das listas `tools`, que ficaram fora do texto de propósito. Em TARGETS, 19 dos 22 setores extraídos não casaram com os nós Sector, o que derruba a precisão.
+  Causas: o texto de entrada tem só o summary, e o gold de USES vem das listas `tools`, que ficaram fora do texto de propósito.
+
+  Os setores extraídos vêm como texto livre ("governments", "banks", "oil and gas", "universities") e o `resolve.py` só casa por nome exato com os 17 nós Sector: 19 dos 22 ficaram sem par e viraram `new:Sector:*`.
+  Toda aresta com um desses tails conta como erro, por isso TARGETS → Sector tem precisão 0,14, contra 0,60 de TARGETS → Country.

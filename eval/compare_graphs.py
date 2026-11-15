@@ -33,7 +33,7 @@ RETURN DISTINCT g.id, type(r), t.id, labels(t)[0]
 
 def edges(graph, group_ids):
     rows = graph.ro_query(EDGE_QUERY, {"ids": sorted(group_ids), "rels": RELATIONS}).result_set
-    return {(g, r, t) for g, r, t, label in rows if (r, label) in ALLOWED}
+    return {(g, r, t, label) for g, r, t, label in rows if (r, label) in ALLOWED}
 
 
 def prf(extracted, gold):
@@ -44,14 +44,28 @@ def prf(extracted, gold):
     return hits, p, r, f
 
 
+# linhas da tabela: (nome, relação, label do tail); None = qualquer
+TABLE_ROWS = [
+    ("ASSOCIATED_WITH", "ASSOCIATED_WITH", None),
+    ("TARGETS -> Country", "TARGETS", "Country"),
+    ("TARGETS -> Sector", "TARGETS", "Sector"),
+    ("USES", "USES", None),
+    ("total", None, None),
+]
+
+
 def compare(extracted, gold):
-    """Uma linha por relação e uma linha 'total' (micro)."""
+    """Uma linha por TABLE_ROWS. Arestas são tuplas (group, relação, tail, label_do_tail);
+    o acerto é decidido só por (group, relação, tail) — o label serve para separar linhas."""
+    def pick(edge_set, rel, label):
+        return {x[:3] for x in edge_set
+                if (rel is None or x[1] == rel) and (label is None or x[3] == label)}
+
     rows = []
-    for rel in RELATIONS + ["total"]:
-        e = {x for x in extracted if rel in ("total", x[1])}
-        g = {x for x in gold if rel in ("total", x[1])}
+    for name, rel, label in TABLE_ROWS:
+        e, g = pick(extracted, rel, label), pick(gold, rel, label)
         hits, p, r, f = prf(e, g)
-        rows.append({"relation": rel, "n_extracted": len(e), "n_gold": len(g), "hits": hits,
+        rows.append({"relation": name, "n_extracted": len(e), "n_gold": len(g), "hits": hits,
                      "precision": None if p is None else round(p, 4),
                      "recall": None if r is None else round(r, 4),
                      "f1": None if f is None else round(f, 4)})
