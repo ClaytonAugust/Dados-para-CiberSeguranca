@@ -100,8 +100,26 @@ def main():
         w = csv.DictWriter(f, fieldnames=list(rows[0]))
         w.writeheader()
         w.writerows(rows)
-    print(f"textos extraídos: {len(done)}; grupos no recorte: {len(group_ids)}; "
-          f"sem Group no gold: {skipped}")
+    triples = [json.loads(x) for x in
+               Path("eval/extraction/triples.jsonl").read_text(encoding="utf-8").splitlines()]
+    meta = {
+        "textos_amostra": len(texts),
+        "textos_extraidos": len(done),
+        "textos_extraidos_por_tipo": {k: sum(t["doc_id"].startswith(k + ":") for t in done)
+                                      for k in ["apt", "ransomware", "malware"]},
+        "grupos_no_recorte": len(group_ids),
+        "textos_sem_group_no_gold": skipped,
+        "triplas": len(triples),
+        "evidencia_literal": sum(t["evidence_in_text"] for t in triples),
+        "head_resolvido": sum(t["head_resolved"] for t in triples),
+        "tail_resolvido_por_tipo": {
+            k: [sum(t["tail_resolved"] for t in triples if t["tail_type"] == k),
+                sum(t["tail_type"] == k for t in triples)]
+            for k in ["Country", "Sector", "Software"]},
+    }
+    (out_dir / "extraction_meta.json").write_text(json.dumps(meta, ensure_ascii=False, indent=2),
+                                                  encoding="utf-8")
+    print(meta)
     for r in rows:
         print(r)
 
