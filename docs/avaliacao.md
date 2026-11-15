@@ -6,6 +6,7 @@
 
 - **B2 (15/11/2026)** — `eval/fill_expected.py` preencheu `expected_ids` com `ro_query`; ficaram vazias só q28, q29 e q30, as 3 sem resposta.
 - **B3 (15/11/2026)** — `eval/run_retrieval_eval.py`, sem LLM, resultados em `eval/results/2026-11-15/`. Média das 21 perguntas com resposta, sem as 6 de lista longa (mais de 20 ids): recall 0,82 e precisão 0,03 sobre todos os nós; recall 0,09 sobre as 12 relações que vão ao LLM. Em média o retriever devolve ~300 nós e ~350 caminhos, por isso o recall alto e a precisão baixa. As 3 sem resposta também recuperam 111 a 378 nós. Tempo médio de 222 ms, quase todo na expansão (194 ms).
+- **B4 (15/11/2026)** — `eval/run_eval.py` compara 3 sistemas (LLM puro, RAG vetorial, GraphRAG) com retry só em Timeout/503, cache em `eval/cache/llm/` e falha registrada como linha "erro". Rodada com 5 perguntas: 15/15 linhas com erro 429 (cota do Gemini esgotada), sem nenhuma resposta. Repetir quando a cota voltar.
 
 ## Extração
 
