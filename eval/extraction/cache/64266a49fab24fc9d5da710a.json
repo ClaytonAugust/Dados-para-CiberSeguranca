@@ -1,0 +1,1 @@
+{"model": "gemini/gemini-3.8-flash", "raw": "{\"triples\": [{\"head\": \"APT29\", \"relation\": \"ASSOCIATED_WITH\", \"tail\": \"Russia\", \"tail_type\": \"Country\", \"evidence\": \"The US, UK and other governments have attributed APT29 to Russia's Foreign Intelligence Service (SVR).\", \"confidence\": 0.95}]}"}
