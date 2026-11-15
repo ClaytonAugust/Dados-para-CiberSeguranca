@@ -1,0 +1,3292 @@
+[
+  {
+    "field": "country",
+    "value": "Defense",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Aerospace",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Nuclear",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Engineering",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Healthcare",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Medical and energy",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Medical and energy",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Government",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Finance",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Countries",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Countries",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Recruitment staff",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Recruitment staff",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "East Asia",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_region",
+    "value": "East Asia",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Nuclear power",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Nuclear power",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Solar products",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Solar products",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Metals (steel)",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Metals (steel)",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Metals",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Metals",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Labor union",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Labor union",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Technology",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Manufacturing",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Civil society",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Civil society",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Other sectors",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Other sectors",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Legal services",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Legal services",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Energy",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Pharmaceutical",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Pharmaceutical",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Telecommunications",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "High tech",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "High tech",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Education and manufacturing",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Education and manufacturing",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Aerospace, government, defense, technology, energy, manufacturing, gambling/betting",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Aerospace, government, defense, technology, energy, manufacturing, gambling/betting",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Businesses",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Businesses",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Business and governments",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Business and governments",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Technology companies, think tanks, law firms, defense contractors, local governments, health care systems, universities",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Technology companies, think tanks, law firms, defense contractors, local governments, health care systems, universities",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "US federal government",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "US federal government",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Critical infrastructure and defense",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Critical infrastructure and defense",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "IT and service providers",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "IT and service providers",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Government and military",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Government and military",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Political parties",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Political parties",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Defense industry and aerospace",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Defense industry and aerospace",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Logistics and transport",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Logistics and transport",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "IT and technology firms",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "IT and technology firms",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Media",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Sport and anti-doping bodies",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Sport and anti-doping bodies",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Think tanks and research",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Think tanks and research",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Europe",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_region",
+    "value": "Europe",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "North America",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_region",
+    "value": "North America",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "NATO members",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_region",
+    "value": "NATO members",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Caucasus",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_region",
+    "value": "Caucasus",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Middle East",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_region",
+    "value": "Middle East",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Europe and NATO members",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_region",
+    "value": "Europe and NATO members",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Germany, Czechia and France",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_region",
+    "value": "Germany, Czechia and France",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Think tanks and research institutes",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Think tanks and research institutes",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Technology and IT",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Technology and IT",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Healthcare and vaccine research",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Healthcare and vaccine research",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Telecommunications and consulting",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Telecommunications and consulting",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Political organizations",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Political organizations",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Private sector",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Private sector",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Foreign governments",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Foreign governments",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Dissidents and opposition",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Dissidents and opposition",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Journalists and media",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Journalists and media",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Activists and bloggers",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Activists and bloggers",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Digital certificate authority",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Digital certificate authority",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Cybersecurity professionals and large enterprises",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Cybersecurity professionals and large enterprises",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Website visitors",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Website visitors",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Aviation",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Aviation",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Multiple industries",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Multiple industries",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Middle East and Europe",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Middle East and Europe",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Financial",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Financial",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Chemical",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Critical infrastructure",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Critical infrastructure",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Middle East",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Academia",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Academia",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "NGOs and think tanks",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "NGOs and think tanks",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Politicians and activists",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Politicians and activists",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Health organizations",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Health organizations",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Energy, business services and telecoms",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Energy, business services and telecoms",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "United States, Europe and the Middle East",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_region",
+    "value": "United States, Europe and the Middle East",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "European Union",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_region",
+    "value": "European Union",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Diplomatic",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Diplomatic",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Research",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Research",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Students",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Students",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Websites imitated",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Websites imitated",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Security researchers",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Security researchers",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Japan, Vietnam, Russia, Nepal, China, India, Romania, Kuwait and the wider Middle East",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_region",
+    "value": "Japan, Vietnam, Russia, Nepal, China, India, Romania, Kuwait and the wider Middle East",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Banks and financial institutions",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Banks and financial institutions",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Bank payment systems and ATMs",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Bank payment systems and ATMs",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "SWIFT endpoints",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "SWIFT endpoints",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Cryptocurrency exchanges",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Cryptocurrency exchanges",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Cryptocurrency and blockchain firms",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Cryptocurrency and blockchain firms",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Casinos",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Casinos",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Chile and Mexico",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_region",
+    "value": "Chile and Mexico",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Africa",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_region",
+    "value": "Africa",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Estonia, Panama and Seychelles",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_region",
+    "value": "Estonia, Panama and Seychelles",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Travel and hospitality",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Travel and hospitality",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Academic",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Academic",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Dissidents and journalists",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Dissidents and journalists",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Iranian private sector",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Iranian private sector",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Asia, Africa, Europe, North America",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Asia, Africa, Europe, North America",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Maritime and naval",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Maritime and naval",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Research, universities and health",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Research, universities and health",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Aerospace, aviation and defense",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Aerospace, aviation and defense",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Transport and manufacturing",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Transport and manufacturing",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Politics and elections",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Politics and elections",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "United States, Canada and Europe",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_region",
+    "value": "United States, Canada and Europe",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Middle East and Southeast Asia",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_region",
+    "value": "Middle East and Southeast Asia",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Video games",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Video games",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Education and universities",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Education and universities",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Hospitality",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Hospitality",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Shipping, logistics and media",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Shipping, logistics and media",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Asia",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_region",
+    "value": "Asia",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Australia, Brazil and Chile",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_region",
+    "value": "Australia, Brazil and Chile",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Defense and government",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Defense and government",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "US election campaigns",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "US election campaigns",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "European Parliament",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "European Parliament",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Middle East region",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Middle East region",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Edge and remote access appliances",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Edge and remote access appliances",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Many sectors",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Many sectors",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "SaaS providers",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "SaaS providers",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Business process outsourcers",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Business process outsourcers",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Virtualization",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Virtualization",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Government personnel",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Government personnel",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Civil society, journalists, opposition politicians",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Civil society, journalists, opposition politicians",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Mobile phone users",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Mobile phone users",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Defense and military support",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Defense and military support",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Media, construction, engineering, electronics, finance",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Media, construction, engineering, electronics, finance",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Defense, media and communications in Japan",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Defense, media and communications in Japan",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Multinational companies with subsidiaries",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Multinational companies with subsidiaries",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Organizations running F5 BIG-IP",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Organizations running F5 BIG-IP",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Water and wastewater, United States",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Water and wastewater, United States",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Other US critical infrastructure",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Other US critical infrastructure",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Israeli-made equipment",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Israeli-made equipment",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Other countries",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Other countries",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Industrial control devices worldwide",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Industrial control devices worldwide",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "US and other countries, critical infrastructure",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "US and other countries, critical infrastructure",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Energy and industrial control systems",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Energy and industrial control systems",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Industrial control system suppliers",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Industrial control system suppliers",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Energy, nuclear, water, aviation, manufacturing",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Energy, nuclear, water, aviation, manufacturing",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "State and local government, aviation",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "State and local government, aviation",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Engineering and industrial control companies",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Engineering and industrial control companies",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Defense, aviation, government",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Defense, aviation, government",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Communications, defense industrial base, energy, finance, government, health",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Communications, defense industrial base, energy, finance, government, health",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Critical infrastructure networking devices",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Critical infrastructure networking devices",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Russian critics and the public",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Russian critics and the public",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Aid to Ukraine",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Aid to Ukraine",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "IT providers and software developers",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "IT providers and software developers",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Government, defense, dissidents, think tanks",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Government, defense, dissidents, think tanks",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Web users and website owners",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Web users and website owners",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "NATO and EU countries",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_region",
+    "value": "NATO and EU countries",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Restaurants, gaming and hospitality",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Restaurants, gaming and hospitality",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Retail, restaurants and hotels",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Retail, restaurants and hotels",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Transportation, insurance and defense",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Transportation, insurance and defense",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Named victims",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Named victims",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Industries listed by MITRE",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Industries listed by MITRE",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Ukrainian ministries",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Ukrainian ministries",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Ukrainian government bodies",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Ukrainian government bodies",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Security and defense",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Security and defense",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Law enforcement",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Law enforcement",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Judiciary and non-profits",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Judiciary and non-profits",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "European Union state bodies",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "European Union state bodies",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Western military missions",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Western military missions",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Infectious disease and COVID-19 research",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Infectious disease and COVID-19 research",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Law firms",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Law firms",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Higher education",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Higher education",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Defense contractors",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Defense contractors",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Policy think tanks and NGOs",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Policy think tanks and NGOs",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Worldwide",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Worldwide",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Critical infrastructure and private sector",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Critical infrastructure and private sector",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Medical technology",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Medical technology",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Israeli military and government personnel",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Israeli military and government personnel",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Israeli organizations",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Israeli organizations",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Religious community",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Religious community",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Education and business",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Education and business",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Business",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Business",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Manufacturing, IT and media",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Manufacturing, IT and media",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "High-earning firms",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "High-earning firms",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Any industry",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Any industry",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Exposed network devices",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Exposed network devices",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Other devices of interest",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Other devices of interest",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "United States and Canada",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "United States and Canada",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Asia Pacific",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Asia Pacific",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Latin America",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Latin America",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Not stated in the sources",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Think tanks and research centers",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Think tanks and research centers",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Universities and academic institutions",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Universities and academic institutions",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "News media",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "News media",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Policy experts and analysts",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Policy experts and analysts",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Cryptocurrency industry",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Cryptocurrency industry",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "International organizations",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "International organizations",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Business services and manufacturing",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Business services and manufacturing",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Germany, wider Europe and Russia",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_region",
+    "value": "Germany, wider Europe and Russia",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Technology and software",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Technology and software",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Outsourcing firms and service providers",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Outsourcing firms and service providers",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Energy, manufacturing and higher education",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Energy, manufacturing and higher education",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "United Kingdom and South America",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_region",
+    "value": "United Kingdom and South America",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "United States, Portugal and Colombia",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_region",
+    "value": "United States, Portugal and Colombia",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Based mainly in the United Kingdom and Brazil, per the US Cyber Safety Review Board",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Technology and digital services",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Technology and digital services",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Civil society and media",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Civil society and media",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Energy and critical sectors",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Energy and critical sectors",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Telecoms, health and transport",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Telecoms, health and transport",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "EU and NATO states",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "EU and NATO states",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "East and Central Asia",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "East and Central Asia",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Organizations running Zimbra",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Organizations running Zimbra",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Financial institutions",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Financial institutions",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Cryptocurrency",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Cryptocurrency",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Entertainment",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Entertainment",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Online gambling",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Online gambling",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Software, construction and communication equipment (South Korea)",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Software, construction and communication equipment (South Korea)",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_region",
+    "value": "Worldwide",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Southeast and South Asia",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_region",
+    "value": "Southeast and South Asia",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_region",
+    "value": "Latin America",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Over 30 countries (crypto)",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_region",
+    "value": "Over 30 countries (crypto)",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Service providers",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Service providers",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Technology and aerospace",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Technology and aerospace",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "US government",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "US government",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Healthcare and biotechnology",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Healthcare and biotechnology",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Energy and mining",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Energy and mining",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Telecoms and electronics",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Telecoms and electronics",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Victim countries",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Victim countries",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Think tanks",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Think tanks",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Politicians",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Politicians",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Mass media",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Mass media",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Semiconductors and manufacturing",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Semiconductors and manufacturing",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Defense, diplomatic, financial",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Defense, diplomatic, financial",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Central Europe",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Central Europe",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Local government",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Local government",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Oil and natural gas",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Oil and natural gas",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Government agency employees",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Government agency employees",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Turkey",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Turkey",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Government and diplomacy",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Government and diplomacy",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Think tanks, religion, research",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Think tanks, religion, research",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Chinese dissident groups",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Chinese dissident groups",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "European governments",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "European governments",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "EU institutions",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "EU institutions",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Diplomatic missions",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Diplomatic missions",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Shipping",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Shipping",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Indo-Pacific governments",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Indo-Pacific governments",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Telecommunications and internet providers",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Telecommunications and internet providers",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Customer data",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Customer data",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "People in government and politics",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "People in government and politics",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Government, transport, lodging, military",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Government, transport, lodging, military",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Routers and edge devices",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Routers and edge devices",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "ISP customers",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "ISP customers",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Seven countries",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Seven countries",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Transport and logistics",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Transport and logistics",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Sport and events",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Sport and events",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "IT and web hosting",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "IT and web hosting",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "CRM, BPO, telecom and technology",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "CRM, BPO, telecom and technology",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Gaming, hospitality, retail, managed service providers, manufacturing, finance",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Gaming, hospitality, retail, managed service providers, manufacturing, finance",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Commercial facilities",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Commercial facilities",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Large companies and their IT help desks",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Large companies and their IT help desks",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Transport",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Transport",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "US healthcare",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "US healthcare",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Critical infrastructure and US courts",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Critical infrastructure and US courts",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "US companies in general",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "US companies in general",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Luxury jewellery retailer",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Luxury jewellery retailer",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Not attributed to a state",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Technology, finance and retail",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Technology, finance and retail",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Education",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Third-party vendors on cloud platforms",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Third-party vendors on cloud platforms",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Customer relationship management (CRM) platforms",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Customer relationship management (CRM) platforms",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Corporate cloud and code repositories",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Corporate cloud and code repositories",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Individuals",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Individuals",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Netherlands and worldwide",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_region",
+    "value": "Netherlands and worldwide",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Not stated in the sources opened",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Government (Pakistan)",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Government (Pakistan)",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Government and ministries (Pakistan)",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Government and ministries (Pakistan)",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Military and law enforcement (Bangladesh)",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Military and law enforcement (Bangladesh)",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Government, defense, diplomatic (Bangladesh)",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Government, defense, diplomatic (Bangladesh)",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "South Asia",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "South Asia",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Government, military, business (Asia)",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Government, military, business (Asia)",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Ports and maritime",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Ports and maritime",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Diplomatic and public administration (EU)",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Diplomatic and public administration (EU)",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Wider sector list (Bangladesh CERT, 2024)",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Wider sector list (Bangladesh CERT, 2024)",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Public administration (Germany)",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Public administration (Germany)",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Central Asia",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Central Asia",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Caucasus and Eastern Europe",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Caucasus and Eastern Europe",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Environment, water and forestry",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Environment, water and forestry",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Mining, transport and communications",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Mining, transport and communications",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Think tanks and embassies",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Think tanks and embassies",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Intelligence community",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Intelligence community",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Other NATO countries and neighbors of Russia",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_region",
+    "value": "Other NATO countries and neighbors of Russia",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "File transfer software users",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "File transfer software users",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "US government agencies",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "US government agencies",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Financial fraud victims",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Financial fraud victims",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Many industries (Clop)",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Many industries (Clop)",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Education (Clop)",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Education (Clop)",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Key infrastructure (Clop)",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Key infrastructure (Clop)",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "United States and worldwide",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_region",
+    "value": "United States and worldwide",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Korea (Clop)",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_region",
+    "value": "Korea (Clop)",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Software developers and CI/CD",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Software developers and CI/CD",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Open source ecosystems",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Open source ecosystems",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "AI developer tooling",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "AI developer tooling",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Cloud accounts",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Cloud accounts",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Kubernetes and containers",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Kubernetes and containers",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Government, academia, private sector",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Government, academia, private sector",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Code hosting platform",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Code hosting platform",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Package maintainers",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Package maintainers",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Military and defense",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Military and defense",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Education and research",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Education and research",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Energy, technology and commercial",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Energy, technology and commercial",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_region",
+    "value": "Central Asia",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Global (50 plus countries)",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_region",
+    "value": "Global (50 plus countries)",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "United States, Germany, Afghanistan",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_region",
+    "value": "United States, Germany, Afghanistan",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Network and virtualization equipment",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Network and virtualization equipment",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Asia-Pacific-Japan",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_region",
+    "value": "Asia-Pacific-Japan",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Communications",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Transportation",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Water and wastewater",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Water and wastewater",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "United States and Guam",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "United States and Guam",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Smaller organizations",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Smaller organizations",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Home and small office routers",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Home and small office routers",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "IT staff",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "IT staff",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Emergency services",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Emergency services",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "US government and companies",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "US government and companies",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Professional services, manufacturing, IT, logistics, travel",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Professional services, manufacturing, IT, logistics, travel",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "All sectors",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "All sectors",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Government and public sector",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Financial services",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Critical infrastructure organizations (all sectors)",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Critical infrastructure organizations (all sectors)",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Critical infrastructure (US and Australia)",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Critical infrastructure (US and Australia)",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Professional services",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Professional services",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Property development",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Property development",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Critical infrastructure, 12 of 16 US sectors",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Critical infrastructure, 12 of 16 US sectors",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Businesses in North America, Europe and Australia",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Businesses in North America, Europe and Australia",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Emergency services and first responders",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Emergency services and first responders",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Energy and pipelines",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Energy and pipelines",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Food and agriculture (BlackMatter)",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Food and agriculture (BlackMatter)",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Large, high-revenue organizations across sectors",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Large, high-revenue organizations across sectors",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Retail and ecommerce",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Retail and ecommerce",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Critical national infrastructure",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Critical national infrastructure",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Construction and engineering",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Construction and engineering",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Legal and professional services",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Legal and professional services",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Government facilities",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Government facilities",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Critical manufacturing",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Critical manufacturing",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Information technology",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Healthcare and public health",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Government and emergency services",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Government and emergency services",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Insurance",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Insurance",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Business services (all sectors)",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Business services (all sectors)",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Government services and facilities",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Government services and facilities",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Technology and managed service providers",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Technology and managed service providers",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Energy and electric utilities",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Energy and electric utilities",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Retail and commercial facilities",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Retail and commercial facilities",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Education (K-12 in particular)",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Education (K-12 in particular)",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "country",
+    "value": "Energy and utilities",
+    "reason": "Needs normalization or manual review"
+  },
+  {
+    "field": "target_sector",
+    "value": "Energy and utilities",
+    "reason": "Needs normalization or manual review"
+  }
+]

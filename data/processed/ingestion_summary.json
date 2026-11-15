@@ -1,0 +1,21 @@
+{
+  "nodes": {
+    "Group": 79,
+    "Software": 392,
+    "Technique": 358,
+    "Tactic": 17,
+    "Vulnerability": 0,
+    "Product": 0,
+    "Vendor": 0,
+    "Sector": 17,
+    "Country": 38,
+    "Document": 181,
+    "Chunk": 181
+  },
+  "documents": 181,
+  "chunks": 181,
+  "semantic_relationships": 3730,
+  "part_of": 181,
+  "mentioned_in": 3244,
+  "unmapped_values": 658
+}
