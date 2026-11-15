@@ -1,0 +1,59 @@
+{
+  "source": "MITRE ATT&CK Enterprise",
+  "stix_version": "2.1",
+  "attack_release": "20.1",
+  "download_url": "https://raw.githubusercontent.com/mitre-attack/attack-stix-data/master/enterprise-attack/enterprise-attack-20.1.json",
+  "file_name": "enterprise-attack-20.1.json",
+  "sha256": "539a843a7b53ed9749740b2123dddae3726b1a4831841c32aca740b011b910b5",
+  "downloaded_at": "2026-11-15T16:59:28.587902+00:00",
+  "bundle_id": "bundle--334dd54f-ac9f-4990-9d9e-e51ecfff5430",
+  "total_objects": 26699,
+  "active_objects": 26253,
+  "object_counts": {
+    "x-mitre-collection": 1,
+    "campaign": 57,
+    "course-of-action": 268,
+    "intrusion-set": 193,
+    "malware": 750,
+    "tool": 95,
+    "attack-pattern": 867,
+    "x-mitre-matrix": 1,
+    "x-mitre-tactic": 15,
+    "x-mitre-analytic": 1773,
+    "x-mitre-data-component": 109,
+    "x-mitre-data-source": 38,
+    "x-mitre-detection-strategy": 708,
+    "relationship": 21822,
+    "identity": 1,
+    "marking-definition": 1
+  },
+  "entity_counts": {
+    "Group": 178,
+    "Software": 842,
+    "Technique": 706,
+    "Tactic": 15
+  },
+  "missing_external_ids": {
+    "Group": 0,
+    "Software": 0,
+    "Technique": 0,
+    "Tactic": 0
+  },
+  "subtechniques": 479,
+  "relationship_counts": {
+    "uses": 18975,
+    "mitigates": 1477,
+    "subtechnique-of": 481,
+    "detects": 706,
+    "revoked-by": 157,
+    "attributed-to": 26
+  },
+  "mapped_relationships": {
+    "USES": 17589,
+    "SUBTECHNIQUE_OF": 479,
+    "BELONGS_TO": 881
+  },
+  "collection_versions": [
+    "20.1"
+  ]
+}

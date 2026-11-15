@@ -1,0 +1,31 @@
+{
+  "source": "MITRE ATT&CK Enterprise",
+  "version": "20.1",
+  "stix_version": null,
+  "bundle_id": "bundle--334dd54f-ac9f-4990-9d9e-e51ecfff5430",
+  "sha256": "539a843a7b53ed9749740b2123dddae3726b1a4831841c32aca740b011b910b5",
+  "entities": {
+    "Group": 178,
+    "Software": 842,
+    "Technique": 706,
+    "Tactic": 15
+  },
+  "total_entities": 1741,
+  "documents": 1741,
+  "chunks": 1741,
+  "semantic_relationships": {
+    "USES": 17589,
+    "SUBTECHNIQUE_OF": 479,
+    "BELONGS_TO": 881
+  },
+  "total_semantic_relationships": 18949,
+  "structural_relationships": {
+    "PART_OF": 1741,
+    "MENTIONED_IN": 20690
+  },
+  "total_structural_relationships": 22431,
+  "mentions": 20690,
+  "skipped_relationships": {
+    "missing_endpoint": 3754
+  }
+}
