@@ -1,0 +1,1 @@
+{"model": "gemini/gemini-3.8-flash", "raw": "{\n  \"triples\": [\n    {\n      \"head\": \"APT41\",\n      \"relation\": \"ASSOCIATED_WITH\",\n      \"tail\": \"China\",\n      \"tail_type\": \"Country\",\n      \"evidence\": \"MITRE describes APT41 as a Chinese state-sponsored espionage group\",\n      \"confidence\": 0.95\n    }\n  ]\n}"}

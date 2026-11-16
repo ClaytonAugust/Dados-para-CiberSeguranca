@@ -23,6 +23,7 @@ sys.path.insert(0, str(ROOT / "src"))
 load_dotenv(ROOT / ".env")
 
 from cti_graphrag.pipeline.answer import GraphRAGPipeline
+from cti_graphrag.retrieval.graph_analysis import two_hop_paths, pagerank_top_nodes
 
 
 st.set_page_config(
@@ -293,6 +294,56 @@ except Exception as erro:
     )
 
     st.stop()
+
+
+# --------------------------------------------------
+# DEMONSTRAÇÃO COMPLEMENTAR: MULTI-HOP E PAGERANK
+# --------------------------------------------------
+
+with st.expander("Demonstração complementar: Multi-hop e PageRank"):
+    st.caption(
+        "Consultas de análise do grafo executadas diretamente no FalkorDB. "
+        "O painel demonstra os algoritmos; os resultados ainda não alteram "
+        "automaticamente o contexto enviado ao Gemini no chat principal."
+    )
+
+    tab_multi, tab_rank = st.tabs(["Travessia multi-hop", "PageRank"])
+
+    with tab_multi:
+        start_id = st.text_input(
+            "ID da entidade inicial", value="G0032", key="multi_hop_start_id",
+            help="Exemplo: G0032 corresponde ao Lazarus Group na base de avaliação."
+        )
+        if st.button("Executar caminho de 2 saltos", key="run_multi_hop"):
+            try:
+                with st.spinner("Percorrendo dois relacionamentos no grafo..."):
+                    paths = two_hop_paths(pipeline.retriever.graph, start_id, limit=50)
+                if paths:
+                    st.success(f"Encontrados {len(paths)} caminhos com dois saltos.")
+                    st.dataframe(paths, use_container_width=True, hide_index=True)
+                else:
+                    st.info("Nenhum caminho de dois saltos foi encontrado para esse ID.")
+            except Exception as erro_multi:
+                st.error(f"Falha na consulta multi-hop: {type(erro_multi).__name__}: {erro_multi}")
+
+    with tab_rank:
+        st.caption("PageRank calcula a importância relativa dos nós considerando as conexões recebidas.")
+        if st.button("Calcular PageRank", key="run_pagerank"):
+            try:
+                with st.spinner("Lendo as arestas e calculando PageRank..."):
+                    ranking = pagerank_top_nodes(pipeline.retriever.graph, top_k=10)
+                if ranking["items"]:
+                    st.success(
+                        f"PageRank calculado: {ranking['nodes']} nós e "
+                        f"{ranking['edges']} arestas no grafo analisado."
+                    )
+                    if ranking["truncated"]:
+                        st.warning("A consulta atingiu o limite de 50.000 arestas; o ranking é da amostra consultada.")
+                    st.dataframe(ranking["items"], use_container_width=True, hide_index=True)
+                else:
+                    st.info("Não foram encontradas arestas para calcular PageRank.")
+            except Exception as erro_rank:
+                st.error(f"Falha no PageRank: {type(erro_rank).__name__}: {erro_rank}")
 
 
 # --------------------------------------------------

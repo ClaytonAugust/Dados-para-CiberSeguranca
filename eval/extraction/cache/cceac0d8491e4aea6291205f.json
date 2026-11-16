@@ -1,0 +1,1 @@
+{"model": "gemini/gemini-3.8-flash", "raw": "{\"triples\": [{\"head\": \"APT39\", \"relation\": \"ASSOCIATED_WITH\", \"tail\": \"Iran\", \"tail_type\": \"Country\", \"evidence\": \"attributed APT39, also called Chafer, to Iran's Ministry of Intelligence and Security (MOIS)\", \"confidence\": 0.95}]}"}

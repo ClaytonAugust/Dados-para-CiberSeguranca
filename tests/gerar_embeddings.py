@@ -13,7 +13,7 @@ from falkordb import FalkorDB
 # CONFIGURAÇÕES
 # --------------------------------------------------
 
-ROOT = Path(__file__).resolve().parent
+ROOT = Path(__file__).resolve().parents[1]
 load_dotenv(ROOT / ".env")
 
 MODEL_NAME = "intfloat/multilingual-e5-small"

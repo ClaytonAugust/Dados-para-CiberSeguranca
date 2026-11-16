@@ -1,0 +1,28 @@
+{
+  "textos_amostra": 30,
+  "textos_extraidos": 17,
+  "textos_extraidos_por_tipo": {
+    "apt": 15,
+    "ransomware": 2,
+    "malware": 0
+  },
+  "grupos_no_recorte": 17,
+  "textos_sem_group_no_gold": [],
+  "triplas": 44,
+  "evidencia_literal": 44,
+  "head_resolvido": 44,
+  "tail_resolvido_por_tipo": {
+    "Country": [
+      17,
+      19
+    ],
+    "Sector": [
+      8,
+      22
+    ],
+    "Software": [
+      2,
+      3
+    ]
+  }
+}
